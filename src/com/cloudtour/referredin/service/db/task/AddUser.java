@@ -3,16 +3,14 @@ package com.cloudtour.referredin.service.db.task;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.cloudtour.referredin.service.db.DBTask;
-
-public class Register extends DBTask {
+public class AddUser extends DBTask {
 	private String name;
 	private String firstname;
 	private String lastname;
 	private String birthdate;
 	private String resume;
 
-	public Register(String name, String firstname, String lastname,
+	public AddUser(String name, String firstname, String lastname,
 			String birthdate, String resume) {
 		super();
 		this.name = name;

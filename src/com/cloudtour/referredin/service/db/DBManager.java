@@ -16,6 +16,7 @@ public class DBManager {
 		return instance;
 	}
 	
+	// need to improve connection pool.
 	public synchronized DBWorker getWorker() {
 		DBWorker worker = new DBWorker();
 		worker.getDirver();

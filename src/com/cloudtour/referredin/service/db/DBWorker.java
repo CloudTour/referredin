@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.cloudtour.referredin.service.db.task.DBTask;
+
 public class DBWorker {
 	Connection conn;
 	Statement stmt;

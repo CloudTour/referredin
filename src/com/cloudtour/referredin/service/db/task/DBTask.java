@@ -1,4 +1,4 @@
-package com.cloudtour.referredin.service.db;
+package com.cloudtour.referredin.service.db.task;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
