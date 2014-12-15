@@ -9,4 +9,34 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>HandleUser</display-name>
+    <servlet-name>HandleUser</servlet-name>
+    <servlet-class>com.cloudtour.referredin.service.HandleUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HandleUser</servlet-name>
+    <url-pattern>/HandleUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetUser</display-name>
+    <servlet-name>GetUser</servlet-name>
+    <servlet-class>com.cloudtour.referredin.service.user.GetUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetUser</servlet-name>
+    <url-pattern>/GetUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>HandleFriendship</display-name>
+    <servlet-name>HandleFriendship</servlet-name>
+    <servlet-class>com.cloudtour.referredin.service.HandleFriendship</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HandleFriendship</servlet-name>
+    <url-pattern>/HandleFriendship</url-pattern>
+  </servlet-mapping>
 </web-app>

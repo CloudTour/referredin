@@ -13,7 +13,9 @@ public abstract class DBTask {
 		
 		PreparedStatement statement;
 		try {
-			statement = connection.prepareStatement(makeSQL());
+			String sql = makeSQL();
+			System.out.println(sql);
+			statement = connection.prepareStatement(sql);
 			configure(statement);
 			return statement.executeQuery();
 		} catch (SQLException e) {

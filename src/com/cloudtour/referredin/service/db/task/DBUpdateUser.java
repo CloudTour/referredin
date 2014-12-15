@@ -3,17 +3,19 @@ package com.cloudtour.referredin.service.db.task;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AddUser extends DBTask {
+public class DBUpdateUser extends DBTask {
 	private String name;
+	private String password;
 	private String firstname;
 	private String lastname;
 	private String birthdate;
 	private String resume;
 
-	public AddUser(String name, String firstname, String lastname,
+	public DBUpdateUser(String name, String password, String firstname, String lastname,
 			String birthdate, String resume) {
 		super();
 		this.name = name;
+		this.password = password;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.birthdate = birthdate;
@@ -23,17 +25,21 @@ public class AddUser extends DBTask {
 	@Override
 	protected String makeSQL() {
 		// TODO Auto-generated method stub
-		return "insert into User values(?,?,?,?,?);";
+		return "update User "
+				+ "set password=?, firstname=?, lastname=?, birthdate=?, resume=? "
+				+ "where uname=?";
 	}
 
 	@Override
 	protected void configure(PreparedStatement statement) throws SQLException {
 		// TODO Auto-generated method stub
-		statement.setString(1, name);
-		statement.setString(2, firstname);
-		statement.setString(3, lastname);
-		statement.setString(4, birthdate);
-		statement.setString(5, resume);
+		int i = 0;
+		statement.setString(++i, password);
+		statement.setString(++i, firstname);
+		statement.setString(++i, lastname);
+		statement.setString(++i, birthdate);
+		statement.setString(++i, resume);
+		statement.setString(++i, name);
 	}
 
 }
