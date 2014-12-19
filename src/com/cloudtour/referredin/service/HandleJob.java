@@ -73,7 +73,7 @@ public class HandleJob extends HttpServlet {
 
 		DBWorker worker = DBManager.getInstance().getWorker();
 		int out = worker.update(new DBDeleteJobskill(jid, skill));
-		response.getWriter().write(out);
+		response.getWriter().write(""+out);
 		DBManager.getInstance().releaseWorker(worker);
 	}
 	
@@ -104,7 +104,7 @@ public class HandleJob extends HttpServlet {
 		}
 		int out = worker.update(new DBAddJob(jid + "", uname, jtitle, jlocation, jcompany,
 				jyears, jsalary, jpostdate, jtype, jindustry, jwebsite));
-		response.getWriter().write(out);
+		response.getWriter().write(""+out);
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
@@ -126,7 +126,7 @@ public class HandleJob extends HttpServlet {
 		int out = worker.update(new DBUpdateJobByJid(jid, uname, jtitle, jlocation,
 				jcompany, jyears, jsalary, jpostdate, jtype, jindustry,
 				jwebsite));
-		response.getWriter().write(out);
+		response.getWriter().write(""+out);
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
@@ -136,7 +136,7 @@ public class HandleJob extends HttpServlet {
 		
 		DBWorker worker = DBManager.getInstance().getWorker();
 		int out = worker.update(new DBDeleteJobByJid(jid));
-		response.getWriter().write(out);
+		response.getWriter().write(""+out);
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
@@ -146,7 +146,7 @@ public class HandleJob extends HttpServlet {
 		String skill = request.getParameter("skill");
 		DBWorker worker = DBManager.getInstance().getWorker();
 		int out = worker.update(new DBAddJobskill(jid, skill));
-		response.getWriter().write(out);
+		response.getWriter().write(""+out);
 		DBManager.getInstance().releaseWorker(worker);
 	}
 	
