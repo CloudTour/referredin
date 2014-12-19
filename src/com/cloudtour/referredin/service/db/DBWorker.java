@@ -13,14 +13,14 @@ public class DBWorker {
 	Statement stmt;
 	String url= "jdbc:mysql://localhost/referredin?useUnicode=true&characterEncoding=UTF-8";
 	String user = "root";
-	String password = "";
+	String password = "root";
 	
 	public ResultSet query(DBTask task) {
 		return task.query(conn);
 	}
 	
-	public void update(DBTask task) {
-		task.update(conn);
+	public int update(DBTask task) {
+		return task.update(conn);
 	}
 	
 	void getDirver() {

@@ -39,4 +39,14 @@
     <servlet-name>HandleFriendship</servlet-name>
     <url-pattern>/HandleFriendship</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>HandleJob</display-name>
+    <servlet-name>HandleJob</servlet-name>
+    <servlet-class>com.cloudtour.referredin.service.HandleJob</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HandleJob</servlet-name>
+    <url-pattern>/HandleJob</url-pattern>
+  </servlet-mapping>
 </web-app>

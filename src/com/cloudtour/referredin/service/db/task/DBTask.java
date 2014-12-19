@@ -26,9 +26,9 @@ public abstract class DBTask {
 		return null;
 	}
 
-	public void update(Connection connection) {
+	public int update(Connection connection) {
 		if (connection == null) {
-			return;
+			return 0;
 		}
 
 		PreparedStatement statement;
@@ -39,7 +39,9 @@ public abstract class DBTask {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return 0;
 		}
+		return 1;
 	}
 	
 	protected abstract String makeSQL();
