@@ -30,6 +30,7 @@ public class DBTest {
 //		worker.update(dBUpdateJobByJid);
 		DBDeleteJobByJid DBDeleteJobByJid = new DBDeleteJobByJid("11");
 		worker.update(DBDeleteJobByJid);
+		
 	}
 
 	public static String getNow() {
@@ -37,5 +38,6 @@ public class DBTest {
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
 				"yyyy-MM-dd HH:mm:ss");
 		return sdf.format(dt);
+		
 	}
 }

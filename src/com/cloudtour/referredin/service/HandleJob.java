@@ -51,6 +51,12 @@ public class HandleJob extends HttpServlet {
 			return;
 		} else if (action.equals("DBAddJob")) {
 			handleDBAddJob(request, response);
+		} else if (action.equals("DBAddJobskill")) {
+			handleDBAddJobskill(request, response);
+		} else if (action.equals("DBDeleteJobskill")) {
+			handleDBDeleteJobskill(request, response);	
+		} else if (action.equals("DBGetJobskillByJid")) {
+			handleDBGetJobskillByJid(request, response);				
 		} else if (action.equals("DBDeleteJobByJid")) {
 			handleDBDeleteJobByJid(request, response);
 		} else if (action.equals("DBUpdateJobByJid")) {
@@ -60,6 +66,17 @@ public class HandleJob extends HttpServlet {
 		}
 	}
 
+	private void handleDBDeleteJobskill(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String jid = request.getParameter("jid");
+		String skill = request.getParameter("skill");
+
+		DBWorker worker = DBManager.getInstance().getWorker();
+		int out = worker.update(new DBDeleteJobskill(jid, skill));
+		response.getWriter().write(out);
+		DBManager.getInstance().releaseWorker(worker);
+	}
+	
 	private void handleDBAddJob(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String jid = request.getParameter("jid");
@@ -113,12 +130,21 @@ public class HandleJob extends HttpServlet {
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
+	private void handleDBAddJobskill(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String jid = request.getParameter("jid");
+		String skill = request.getParameter("skill");
+		DBWorker worker = DBManager.getInstance().getWorker();
+		int out = worker.update(new DBAddJobskill(jid, skill));
+		response.getWriter().write(out);
+		DBManager.getInstance().releaseWorker(worker);
+	}
+	
 	private void handleDBGetJobByUname(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String uname = request.getParameter("uname");
 		DBWorker worker = DBManager.getInstance().getWorker();
-		worker.query(new DBGetJobByUname(uname));
-		ResultSet set = worker.query(new DBGetUser(uname));
+		ResultSet set = worker.query(new DBGetJobByUname(uname));
 
 		// response
 		JSONArray array = new JSONArray();
@@ -147,4 +173,29 @@ public class HandleJob extends HttpServlet {
 		response.getWriter().write(array.toJSONString());
 		DBManager.getInstance().releaseWorker(worker);
 	}
+	
+	private void handleDBGetJobskillByJid(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String jid = request.getParameter("jid");
+		DBWorker worker = DBManager.getInstance().getWorker();
+		ResultSet set = worker.query(new DBGetJobskillByJid(jid));
+
+		// response
+		JSONArray array = new JSONArray();
+		try {
+			while (set.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("jid", set.getString("jid"));
+				obj.put("skill", set.getString("skill"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		response.getWriter().write(array.toJSONString());
+		DBManager.getInstance().releaseWorker(worker);
+	}
+	
 }
