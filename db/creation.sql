@@ -36,12 +36,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `referredin`.`Friendship`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `referredin`.`Friendship` ;
+DROP TABLE IF EXISTS `referredin`.`Follows` ;
 
-CREATE TABLE IF NOT EXISTS `referredin`.`Friendship` (
+CREATE TABLE IF NOT EXISTS `referredin`.`Follows` (
   `uname` VARCHAR(45) NOT NULL,
-  `friend` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`uname`, `friend`))
+  `following` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`uname`, `following`))
 ENGINE = InnoDB;
 
 
@@ -111,7 +111,8 @@ DROP TABLE IF EXISTS `referredin`.`Job` ;
 
 CREATE TABLE IF NOT EXISTS `referredin`.`Job` (
   `jid` INT NOT NULL,
-  `jtitle` VARCHAR(45) NULL,
+  `uname` VARCHAR(45) NOT NULL,
+  `jtitle` VARCHAR(45) NOT NULL,
   `jlocation` VARCHAR(45) NULL,
   `jcompany` VARCHAR(45) NULL,
   `jyears` VARCHAR(45) NULL,
@@ -131,8 +132,8 @@ DROP TABLE IF EXISTS `referredin`.`JobSkill` ;
 
 CREATE TABLE IF NOT EXISTS `referredin`.`JobSkill` (
   `jid` INT NOT NULL,
-  `sname` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`jid`, `sname`))
+  `skill` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`jid`, `skill`))
 ENGINE = InnoDB;
 
 

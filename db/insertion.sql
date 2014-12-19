@@ -5,31 +5,32 @@ insert into user values('kx', 'abc123', 'Ke', 'Xu', '1990-1-1', '');
 insert into user values('yw', 'abc123', 'Yangge', 'Wu', '1990-1-1', '');
 insert into user values('jl', 'abc123', 'Jianqian', 'Liu', '1990-1-1', '');
 
--- add friendship
-insert into Friendship values('zy', 'hn');
-insert into Friendship values('zy', 'jl');
-insert into Friendship values('zy', 'kx');
-insert into Friendship values('zy', 'yw');
+-- add Follows
+insert into Follows values('zy', 'hn');
+insert into Follows values('zy', 'jl');
+insert into Follows values('zy', 'kx');
+insert into Follows values('zy', 'yw');
 
-insert into Friendship values('hn', 'zy');
-insert into Friendship values('hn', 'jl');
-insert into Friendship values('hn', 'kx');
-insert into Friendship values('hn', 'yw');
+insert into Follows values('hn', 'zy');
+insert into Follows values('hn', 'jl');
+insert into Follows values('hn', 'kx');
+insert into Follows values('hn', 'yw');
 
-insert into Friendship values('kx', 'zy');
-insert into Friendship values('kx', 'jl');
-insert into Friendship values('kx', 'hn');
-insert into Friendship values('kx', 'yw');
+insert into Follows values('kx', 'zy');
+insert into Follows values('kx', 'jl');
+insert into Follows values('kx', 'hn');
+insert into Follows values('kx', 'yw');
 
-insert into Friendship values('yw', 'zy');
-insert into Friendship values('yw', 'jl');
-insert into Friendship values('yw', 'hn');
-insert into Friendship values('yw', 'kx');
+insert into Follows values('yw', 'zy');
+insert into Follows values('yw', 'jl');
+insert into Follows values('yw', 'hn');
+insert into Follows values('yw', 'kx');
 
-insert into Friendship values('jl', 'zy');
-insert into Friendship values('jl', 'yw');
-insert into Friendship values('jl', 'hn');
-insert into Friendship values('jl', 'kx');
+insert into Follows values('jl', 'zy');
+insert into Follows values('jl', 'yw');
+insert into Follows values('jl', 'hn');
+insert into Follows values('jl', 'kx');
+
 
 -- add group
 insert into Groups values(1, 'zy', 'Engineering');

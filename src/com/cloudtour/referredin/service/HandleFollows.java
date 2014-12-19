@@ -21,13 +21,13 @@ import com.cloudtour.referredin.service.db.task.DBGetFriends;
 /**
  * Servlet implementation class HandleFriendship
  */
-public class HandleFriendship extends HttpServlet {
+public class HandleFollows extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HandleFriendship() {
+    public HandleFollows() {
         super();
         // TODO Auto-generated constructor stub
     }

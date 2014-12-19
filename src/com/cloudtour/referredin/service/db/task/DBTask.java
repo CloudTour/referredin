@@ -14,7 +14,7 @@ public abstract class DBTask {
 		PreparedStatement statement;
 		try {
 			String sql = makeSQL();
-			System.out.println(sql);
+			System.out.println("sql: " + sql);
 			statement = connection.prepareStatement(sql);
 			configure(statement);
 			return statement.executeQuery();
