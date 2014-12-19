@@ -79,7 +79,7 @@ public class HandleJob extends HttpServlet {
 	
 	private void handleDBAddJob(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String jid = request.getParameter("jid");
+		//String jid = request.getParameter("jid");
 		String uname = request.getParameter("uname");
 		String jtitle = request.getParameter("jtitle");
 		String jlocation = request.getParameter("jlocation");
@@ -92,7 +92,17 @@ public class HandleJob extends HttpServlet {
 		String jwebsite = request.getParameter("jwebsite");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		int out = worker.update(new DBAddJob(jid, uname, jtitle, jlocation, jcompany,
+		ResultSet set = worker.query(new DBGetMaxJobId());
+		int jid = -1;
+		try {
+			while (set.next()) {
+				jid = set.getInt("jid") + 1;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int out = worker.update(new DBAddJob(jid + "", uname, jtitle, jlocation, jcompany,
 				jyears, jsalary, jpostdate, jtype, jindustry, jwebsite));
 		response.getWriter().write(out);
 		DBManager.getInstance().releaseWorker(worker);
