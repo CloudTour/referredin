@@ -14,12 +14,12 @@ import org.json.simple.JSONObject;
 
 import com.cloudtour.referredin.service.db.DBManager;
 import com.cloudtour.referredin.service.db.DBWorker;
-import com.cloudtour.referredin.service.db.task.DBAddFriend;
+import com.cloudtour.referredin.service.db.task.DBAddFollow;
 import com.cloudtour.referredin.service.db.task.DBDeleteFollow;
 import com.cloudtour.referredin.service.db.task.DBGetFollows;
 
 /**
- * Servlet implementation class HandleFriendship
+ * Servlet implementation class HandleFollows
  */
 public class HandleFollows extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -60,9 +60,10 @@ public class HandleFollows extends HttpServlet {
 
 		response.getWriter().write(array.toJSONString());
 		DBManager.getInstance().releaseWorker(worker);
-
 	}
 
+
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -82,19 +83,23 @@ public class HandleFollows extends HttpServlet {
 	private void handleDelete(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String uname = request.getParameter("uname");
-		String friend = request.getParameter("friend");
+		String following = request.getParameter("following");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		worker.update(new DBDeleteFollow(uname, friend));
+		int out = worker.update(new DBDeleteFollow(uname, following));
+		response.getWriter().write(out);
+		DBManager.getInstance().releaseWorker(worker);
 	}
 
 	private void handleAdd(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String uname = request.getParameter("uname");
-		String friend = request.getParameter("friend");
+		String following = request.getParameter("following");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		worker.update(new DBAddFriend(uname, friend));
+		int out = worker.update(new DBAddFollow(uname, following));
+		response.getWriter().write(out);
+		DBManager.getInstance().releaseWorker(worker);
 	}
 
 
