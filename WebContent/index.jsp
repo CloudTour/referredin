@@ -292,22 +292,26 @@
 			if ($("#reg-uname-input").val() == "") {
 				alert("Username can't be empty.");
 				$("#reg-uname-input").focus();
+				return;
 			}
 
 			if ($("#reg-password-input").val() == "") {
 				alert("Password can't be empty.");
 				$("#reg-passowrd-input").focus();
+				return;
 			}
 
 			if ($("#reg-repeat-password-input").val() == "") {
 				alert("Password can't be empty.");
 				$("#reg-repeat-passowrd-input").focus();
+				return;
 			}
 
 			if ($("#reg-password-input").val() != $(
 					"#reg-repeat-password-input").val()) {
 				alert("Passwords don't match.");
 				$("#reg-passowrd-input").focus();
+				return;
 			}
 
 			$.ajax({
@@ -320,7 +324,6 @@
 				}
 			}).done(
 					function(data) {
-						debugger;
 						var json = JSON.parse(data);
 						if (json.result != "success") {
 							alert(json.result);

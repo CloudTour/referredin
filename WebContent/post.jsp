@@ -171,7 +171,7 @@
 								<!-- job type-->
 								<div class="input-group input-group-lg">
 									<select id="jtype-select"><option>Job Type</option></select> <select
-										id="jindustry"><option>Industry</option></select>
+										id="jindustry-select"><option>Industry</option></select>
 								</div>
 								<div class="clearfix"></div>
 								<br>
@@ -353,7 +353,6 @@
 				$.ajax({
 					url : "HandleJob",
 					type : "POST",
-					async : false,
 					data : {
 						action : "DBGetJobByJid",
 						jid : jid
@@ -374,7 +373,6 @@
 					$.ajax({
 						url : "HandleJob",
 						type : "POST",
-						async : false,
 						data : {
 							action : "DBGetJobskillByJid",
 							jid : jid
@@ -424,6 +422,7 @@
 						jid : jobs[i].jid,
 					}
 				}).done(function(data) {
+					debugger;
 					jobs[i].tags = JSON.parse(data);
 				})
 			}
@@ -441,30 +440,77 @@
 		function pageLoad(page) {
 			$("#post-div div").remove();
 			var count = -1;
-			for (var i = page; i < page + 5; ++i) {
+			for (var i = page; i < page + 5 && i < jobs.length; ++i) {
 				if (++count == 5)
 					break;
 				var tags = "";
-				for (var j = 0; jobs[i].tags != null && j < jobs[i].tags.length; ++j) {
+				debugger;
+				for (var j = 0; j < jobs[i].tags.length; ++j) {
 					if (tags != "")
 						tags += ", ";
 					tags += "<a href='#'>" + jobs[i].tags[j].skill + "</a>";
 				}
-				var post = "<div class='blog-post'> <ul style='float: right'> <li class='dropdown' style='list-style-type: none;'><a href='#' class='dropdown-toggle' data-toggle='dropdown' >More <b class='caret'></b></a> <ul class='dropdown-menu'> <li><a href='#' onclick='showWin("
+				/* 				var post = "<div class='blog-post'> <ul style='float: right'> <li class='dropdown' style='list-style-type: none;'><a href='#' class='dropdown-toggle' data-toggle='dropdown' >More <b class='caret'></b></a> <ul class='dropdown-menu'> <li><a href='#' onclick='showWin("
+				 + jobs[i].jid
+				 + ")'>Modify</a></li><li><a href='#' onclick='del("
+				 + jobs[i].jid
+				 + ")'>Delete</a></li>  </ul></li> </ul> <table style='width: 100%'> <tr> <td style='width: 30%'><b>Title</b></td> <td style='width: 70%'>"
+				 + jobs[i].jtitle
+				 + "</td> </tr> <tr> <td style='width: 30%'><b>Posting Date</b></td> <td style='width: 70%'>"
+				 + jobs[i].jpostdate
+				 + "</td> </tr> <tr> <td style='width: 30%'><b>Company</b></td> <td style='width: 70%'>"
+				 + jobs[i].jcompany
+				 + "</td> </tr> <tr> <td style='width: 30%'><b>Location</b></td> <td style='width: 70%'>"
+				 + jobs[i].jlocation
+				 + "</td> </tr> </table> <div class='postmetadata' style='margin-top: 10px; margin-bottom: 10px'> <ul> <li><i class='icon-tags'></i> "
+				 + tags
+				 + "</li> </ul> </div> <a class='btn btn-primary' style='' href='#'>Read More</a> </div> "; */
+				var post = "<div class='blog-post'>"
+						+ "<ul style='float: right'>"
+						+ "<li class='dropdown' style='list-style-type: none;'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>More <b class='caret'></b></a>"
+						+ "<ul class='dropdown-menu'> "
+						+ "<li><a href='#' onclick='showWin("
 						+ jobs[i].jid
-						+ ")'>Modify</a></li><li><a href='#' onclick='del("
+						+ ")'>Modify</a></li>"
+						+ "<li><a href='#' onclick='del("
 						+ jobs[i].jid
-						+ ")'>Delete</a></li>  </ul></li> </ul> <table style='width: 100%'> <tr> <td style='width: 30%'><b>Title</b></td> <td style='width: 70%'>"
+						+ ")'>Delete</a></li></ul></li> </ul>"
+						+ "<table style='width: 100%'>"
+						+ "<tr><td style='width: 20%'><b>Title</b></td><td style='width: 30%'>"
 						+ jobs[i].jtitle
-						+ "</td> </tr> <tr> <td style='width: 30%'><b>Posting Date</b></td> <td style='width: 70%'>"
+						+ "</td>"
+						+ " <td style='width: 20%'><b>Posting Date</b></td> <td style='width: 30%'>"
 						+ jobs[i].jpostdate
-						+ "</td> </tr> <tr> <td style='width: 30%'><b>Company</b></td> <td style='width: 70%'>"
+						+ "</td> </tr>"
+						+ "<tr> <td style='width: 20%'><b>Company</b></td> <td style='width: 30%'>"
 						+ jobs[i].jcompany
-						+ "</td> </tr> <tr> <td style='width: 30%'><b>Location</b></td> <td style='width: 70%'>"
+						+ "</td>"
+						+ "<td style='width: 20%'><b>Location</b></td> <td style='width: 30%'>"
 						+ (jobs[i].jlocation == null ? "" : jobs[i].jlocation)
-						+ "</td> </tr> </table> <div class='postmetadata' style='margin-top: 10px; margin-bottom: 10px'> <ul> <li><i class='icon-tags'></i> "
+						+ "</td> </tr>"
+						+ "<tr> <td style='width: 20%'><b>type</b></td> <td style='width: 30%'>"
+						+ jobs[i].jtype
+						+ "</td>"
+						+ "<td style='width: 20%'><b>Industry</b></td> <td style='width: 30%'>"
+						+ jobs[i].jindustry
+						+ "</td> </tr>"
+						+ "<tr> <td style='width: 20%'><b>Salary</b></td> <td style='width: 30%'>"
+						+ jobs[i].jsalary
+						+ "</td>"
+						+ "<td style='width: 20%'><b>Years</b></td> <td style='width: 30%'>"
+						+ jobs[i].jyears
+						+ "</td> </tr>"
+						+ "<tr> <td style='width: 20%'><b>Author</b></td> <td style='width: 30%'>"
+						+ jobs[i].uname
+						+ "</td>"
+						+ "<td style='width: 20%'><b>Description</b></td> <td style='width: 30%'>"
+						+ jobs[i].jwebsite
+						+ "</td></tr> </table>"
+						+ "<div class='postmetadata' style='margin-top: 10px; margin-bottom: 10px'>"
+						+ "<ul> <li><i class='icon-tags'></i> "
 						+ tags
-						+ "</li> </ul> </div> <a class='btn btn-primary' style='' href='#'>Read More</a> </div> ";
+						+ "</li> </ul> </div> </div> ";
+
 				$("#post-div").append(post);
 			}
 
@@ -515,9 +561,10 @@
 
 			var industry = "";
 			if ($("#jindustry-select").prop("selectedIndex") != 0) {
-				type = $("#Jindustry-select").val();
+				industry = $("#jindustry-select").val();
 			}
 
+			debugger;
 			$.ajax(
 					{
 						url : "HandleJob",
@@ -530,22 +577,25 @@
 							jtitle : $("#jtitle-input").val(),
 							jpostdate : $("#jpostdate-input").val(),
 							jcompany : $("#jcompany-input").val(),
-							jlocation : $("jlocation-input").val(),
+							jlocation : $("#jlocation-input").val(),
 							jsalary : $("#jsalary-input").val(),
 							jyears : $("#jyears-input").val(),
+							jwebsite : $("#jwebsite-input").val(),
 							jtype : type,
 							jindustry : industry
 						}
 					}).done(function(data) {
 				debugger;
-				if (data == "-1") {
-					alert("Failed to post job.");
+				var result = JSON.parse(data);
+
+				if (result.result != "success") {
+					alert(result.result);
 					init();
 					return;
 				}
 
 				if ($("#jid").html() == "")
-					$("#jid").html(parseInt(data));
+					$("#jid").html(parseInt(result.jid));
 
 				if ($("#jtags-input").val() != "") {
 					var tags = $("#jtags-input").val().split(",");
@@ -584,7 +634,32 @@
 					jid : jid
 				}
 			}).done(function(data) {
-				init();
+				debugger;
+				var result = JSON.parse(data);
+				if (result.result != "success") {
+					alert(result.result);
+					return;
+				}
+
+				debugger;
+				$.ajax({
+					url : "HandleJob",
+					type : "POST",
+					async : false,
+					data : {
+						action : "DBDeleteJobskill",
+						jid : jid
+					}
+				}).done(function(data) {
+					debugger;
+					var result = JSON.parse(data);
+					if (result.result != "success") {
+						alert(result.result);
+						return;
+					}
+					init();
+				})
+
 			})
 
 		}

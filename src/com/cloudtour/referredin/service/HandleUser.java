@@ -14,8 +14,12 @@ import org.json.simple.JSONObject;
 
 import com.cloudtour.referredin.service.db.DBManager;
 import com.cloudtour.referredin.service.db.DBWorker;
+import com.cloudtour.referredin.service.db.task.DBAddJobskill;
 import com.cloudtour.referredin.service.db.task.DBAddUser;
+import com.cloudtour.referredin.service.db.task.DBAddUserskill;
+import com.cloudtour.referredin.service.db.task.DBDeleteUserskill;
 import com.cloudtour.referredin.service.db.task.DBGetUser;
+import com.cloudtour.referredin.service.db.task.DBGetUserskillByUname;
 import com.cloudtour.referredin.service.db.task.DBUpdateUser;
 
 /**
@@ -86,7 +90,67 @@ public class HandleUser extends HttpServlet {
 			handleAdd(request, response);
 		} else if (action.equals("signin")) {
 			handleSignIn(request, response);
- 		}
+		} else if (action.equals("DBAddUserskill")) {
+			handleDBAddUserskill(request, response);
+		} else if (action.equals("DBDeleteUserskill")) {
+			handleDBDeleteUserskill(request, response);
+		} else if (action.equals("DBGetUserskillByJid")) {
+			handleDBGetUserskillByUname(request, response);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private void handleDBGetUserskillByUname(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		String uname = request.getParameter("uname");
+		DBWorker worker = DBManager.getInstance().getWorker();
+		ResultSet set = worker.query(new DBGetUserskillByUname(uname));
+
+		// response
+		JSONArray array = new JSONArray();
+		try {
+			while (set != null && set.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("uname", set.getString("uname"));
+				obj.put("skill", set.getString("skill"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		response.getWriter().write(array.toJSONString());
+		DBManager.getInstance().releaseWorker(worker);
+		
+	}
+
+	private void handleDBDeleteUserskill(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		String uname = request.getParameter("uname");
+		String skill = request.getParameter("skill");
+
+		DBWorker worker = DBManager.getInstance().getWorker();
+		if (worker.update(new DBDeleteUserskill(uname, skill)))
+			response.getWriter().write("{\"result\": \"success\"}");
+		else
+			response.getWriter().write("{\"result\": \"Failed to delete.\"}");
+		DBManager.getInstance().releaseWorker(worker);
+	}
+
+	private void handleDBAddUserskill(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		String uname = request.getParameter("uname");
+		String skill = request.getParameter("skill");
+		DBWorker worker = DBManager.getInstance().getWorker();
+		if (worker.update(new DBAddUserskill(uname, skill))) 
+			response.getWriter().write("{\"result\": \"success\"}");
+		else
+			response.getWriter().write("{\"result\": \"Failed to add.\"}");
+		DBManager.getInstance().releaseWorker(worker);	
 	}
 
 	@SuppressWarnings("unchecked")
@@ -130,9 +194,11 @@ public class HandleUser extends HttpServlet {
 		String resume = request.getParameter("resume");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		worker.update(new DBAddUser(uname, password, firstname, lastname,
-				birthdate, resume));
-		response.getWriter().write("{\"result\": \"success\"}");
+		if (worker.update(new DBAddUser(uname, password, firstname, lastname,
+				birthdate, resume)))
+			response.getWriter().write("{\"result\": \"success\"}");
+		else
+			response.getWriter().write("{\"result\": \"Failed to add.\"}");
 	}
 
 	private void handleUpdate(HttpServletRequest request,
@@ -145,9 +211,11 @@ public class HandleUser extends HttpServlet {
 		String resume = request.getParameter("resume");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		worker.update(new DBUpdateUser(name, password, firstname, lastname,
-				birthdate, resume));
-		response.getWriter().write("{\"result\": \"success\"}");
+		if (worker.update(new DBUpdateUser(name, password, firstname, lastname,
+				birthdate, resume)))
+			response.getWriter().write("{\"result\": \"success\"}");
+		else
+			response.getWriter().write("{\"result\": \"Failed to update.\"}");
 	}
 
 }

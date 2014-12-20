@@ -76,9 +76,9 @@ public class HandleJob extends HttpServlet {
 
 		DBWorker worker = DBManager.getInstance().getWorker();
 		if (worker.update(new DBDeleteJobskill(jid, skill)))
-			response.getWriter().write("{\"result\": \"success\"");
+			response.getWriter().write("{\"result\": \"success\"}");
 		else
-			response.getWriter().write("{\"result\": \"Failed to delete.\"");
+			response.getWriter().write("{\"result\": \"Failed to delete.\"}");
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
@@ -111,14 +111,15 @@ public class HandleJob extends HttpServlet {
 				JSONObject obj = new JSONObject();
 				obj.put("result", "success");
 				obj.put("jid", jid);
+				response.getWriter().write(obj.toJSONString());
 			} else {
 				response.getWriter()
-						.write("{\"result\": \"Failed to delete.\"");
+						.write("{\"result\": \"Failed to delete.\"}");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			response.getWriter().write("{\"result\": \"Failed to delete.\"");
+			response.getWriter().write("{\"result\": \"Failed to delete.\"}");
 		}
 		DBManager.getInstance().releaseWorker(worker);
 	}
@@ -141,9 +142,9 @@ public class HandleJob extends HttpServlet {
 		if (worker.update(new DBUpdateJobByJid(jid, uname, jtitle, jlocation,
 				jcompany, jyears, jsalary, jpostdate, jtype, jindustry,
 				jwebsite)))
-			response.getWriter().write("{\"result\": \"success\"");
+			response.getWriter().write("{\"result\": \"success\"}");
 		else
-			response.getWriter().write("{\"result\": \"Failed to update.\"");
+			response.getWriter().write("{\"result\": \"Failed to update.\"}");
 			
 		DBManager.getInstance().releaseWorker(worker);
 	}
@@ -154,9 +155,9 @@ public class HandleJob extends HttpServlet {
 
 		DBWorker worker = DBManager.getInstance().getWorker();
 		if (worker.update(new DBDeleteJobByJid(jid)))
-			response.getWriter().write("{\"result\": \"success\"");
+			response.getWriter().write("{\"result\": \"success\"}");
 		else
-			response.getWriter().write("{\"result\": \"Failed to delete.\"");
+			response.getWriter().write("{\"result\": \"Failed to delete.\"}");
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
@@ -166,9 +167,9 @@ public class HandleJob extends HttpServlet {
 		String skill = request.getParameter("skill");
 		DBWorker worker = DBManager.getInstance().getWorker();
 		if (worker.update(new DBAddJobskill(jid, skill))) 
-			response.getWriter().write("{\"result\": \"success\"");
+			response.getWriter().write("{\"result\": \"success\"}");
 		else
-			response.getWriter().write("{\"result\": \"Failed to add.\"");
+			response.getWriter().write("{\"result\": \"Failed to add.\"}");
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
@@ -194,6 +195,7 @@ public class HandleJob extends HttpServlet {
 				obj.put("jpostdate", set.getString("jpostdate"));
 				obj.put("jtype", set.getString("jtype"));
 				obj.put("jindustry", set.getString("jindustry"));
+				obj.put("jwebsite", set.getString("jwebsite"));
 				array.add(obj);
 			}
 		} catch (SQLException e) {
