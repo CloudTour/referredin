@@ -37,8 +37,8 @@ public class DBUpdateJobByJid extends DBTask {
 	protected String makeSQL() {
 		// TODO Auto-generated method stub
 		return "update job "
-				+ "set uname=?, jtitle=?, jlocation=?, jcompany=?, jyears=?"
-				+ ", jsalary=?, jpostdate=?, jtype=?, jindustry=?, jwebsite=?"
+				+ "set uname=?, jtitle=?, jlocation=?, jcompany=?, jyears=?, "
+				+ "jsalary=?, jpostdate=?, jtype=?, jindustry=?, jwebsite=? "
 				+ "where jid=?";
 	}
 

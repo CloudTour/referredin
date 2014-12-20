@@ -79,17 +79,50 @@ public class HandleUser extends HttpServlet {
 		String action = request.getParameter("action");
 		if (action == null || action.isEmpty())
 			return;
-		
+
 		if (action.equals("update")) {
 			handleUpdate(request, response);
 		} else if (action.equals("add")) {
 			handleAdd(request, response);
+		} else if (action.equals("signin")) {
+			handleSignIn(request, response);
+ 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private void handleSignIn(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String uname = request.getParameter("uname");
+		String password = request.getParameter("password");
+
+		// worker
+		DBWorker worker = DBManager.getInstance().getWorker();
+		ResultSet set = worker.query(new DBGetUser(uname));
+
+		try {
+			JSONObject obj = new JSONObject();
+			while (set.next()) {
+				if (set.getString("password").equals(password)) {
+					obj.put("result", "success");
+					response.getWriter().write(obj.toJSONString());
+					return;
+				}
+			}
+
+			obj.put("result", "Username or password is invalid.");
+			response.getWriter().write(obj.toJSONString());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBManager.getInstance().releaseWorker(worker);
 		}
+
 	}
 
 	private void handleAdd(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
+		String uname = request.getParameter("uname");
 		String password = request.getParameter("password");
 		String firstname = request.getParameter("firstname");
 		String lastname = request.getParameter("lastname");
@@ -97,8 +130,9 @@ public class HandleUser extends HttpServlet {
 		String resume = request.getParameter("resume");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		worker.update(new DBAddUser(name, password, firstname, lastname, 
+		worker.update(new DBAddUser(uname, password, firstname, lastname,
 				birthdate, resume));
+		response.getWriter().write("{\"result\": \"success\"}");
 	}
 
 	private void handleUpdate(HttpServletRequest request,
@@ -111,8 +145,9 @@ public class HandleUser extends HttpServlet {
 		String resume = request.getParameter("resume");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		worker.update(new DBUpdateUser(name, password, firstname, lastname, 
+		worker.update(new DBUpdateUser(name, password, firstname, lastname,
 				birthdate, resume));
+		response.getWriter().write("{\"result\": \"success\"}");
 	}
 
 }

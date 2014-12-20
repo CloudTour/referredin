@@ -4,6 +4,11 @@ insert into user values('hn', 'abc123', 'Hongjian', 'Niu', '1990-1-1', '');
 insert into user values('kx', 'abc123', 'Ke', 'Xu', '1990-1-1', '');
 insert into user values('yw', 'abc123', 'Yangge', 'Wu', '1990-1-1', '');
 insert into user values('jl', 'abc123', 'Jianqian', 'Liu', '1990-1-1', '');
+insert into user values('justin123', 'abc123', 'Justin', 'Yang', '1990-1-1', '');
+
+-- add jobs
+
+
 
 -- add Follows
 insert into Follows values('zy', 'hn');

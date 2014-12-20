@@ -15,8 +15,8 @@ import org.json.simple.JSONObject;
 import com.cloudtour.referredin.service.db.DBManager;
 import com.cloudtour.referredin.service.db.DBWorker;
 import com.cloudtour.referredin.service.db.task.DBAddFriend;
-import com.cloudtour.referredin.service.db.task.DBDeleteFriend;
-import com.cloudtour.referredin.service.db.task.DBGetFriends;
+import com.cloudtour.referredin.service.db.task.DBDeleteFollow;
+import com.cloudtour.referredin.service.db.task.DBGetFollows;
 
 /**
  * Servlet implementation class HandleFriendship
@@ -42,15 +42,15 @@ public class HandleFollows extends HttpServlet {
 
 		// worker
 		DBWorker worker = DBManager.getInstance().getWorker();
-		ResultSet set = worker.query(new DBGetFriends(uname));
+		ResultSet set = worker.query(new DBGetFollows(uname));
 
 		// response
 		JSONArray array = new JSONArray();
 		try {
-			while (set.next()) {
+			while (set != null && set.next()) {
 				JSONObject obj = new JSONObject();
 				obj.put("uname", set.getString("uname"));
-				obj.put("friend", set.getString("friend"));
+				obj.put("following", set.getString("following"));
 				array.add(obj);
 			}
 		} catch (SQLException e) {
@@ -85,7 +85,7 @@ public class HandleFollows extends HttpServlet {
 		String friend = request.getParameter("friend");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		worker.update(new DBDeleteFriend(uname, friend));
+		worker.update(new DBDeleteFollow(uname, friend));
 	}
 
 	private void handleAdd(HttpServletRequest request,

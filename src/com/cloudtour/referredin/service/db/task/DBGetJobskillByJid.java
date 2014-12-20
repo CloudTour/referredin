@@ -14,7 +14,7 @@ public class DBGetJobskillByJid extends DBTask {
 	@Override
 	protected String makeSQL() {
 		// TODO Auto-generated method stub
-		return "select * from jobskill where uname=jid";
+		return "select * from jobskill where jid=?";
 	}
 
 	@Override

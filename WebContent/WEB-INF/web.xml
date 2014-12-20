@@ -31,13 +31,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>HandleFriendship</display-name>
-    <servlet-name>HandleFriendship</servlet-name>
-    <servlet-class>com.cloudtour.referredin.service.HandleFriendship</servlet-class>
+    <display-name>HandleFollows</display-name>
+    <servlet-name>HandleFollows</servlet-name>
+    <servlet-class>com.cloudtour.referredin.service.HandleFollows</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>HandleFriendship</servlet-name>
-    <url-pattern>/HandleFriendship</url-pattern>
+    <servlet-name>HandleFollows</servlet-name>
+    <url-pattern>/HandleFollows</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
