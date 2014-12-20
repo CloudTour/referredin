@@ -290,9 +290,6 @@ public class HandleUser extends HttpServlet {
 		String birthdate = request.getParameter("birthdate");
 		String resume = request.getParameter("resume");
 
-		if (password == null)
-			password = "";
-
 		DBWorker worker = DBManager.getInstance().getWorker();
 		if (worker.update(new DBUpdateUser(name, password, firstname, lastname,
 				birthdate, resume)))

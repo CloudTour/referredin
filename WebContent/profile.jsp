@@ -8,6 +8,7 @@
 
 	String uname = (String) session.getAttribute("uname");
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@
 <meta name="author" content="">
 
 
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/anytime.5.0.5.css" rel="stylesheet" />
@@ -45,7 +46,7 @@
 <!-- SCRIPT 
     ============================================================-->
 <script src="http://code.jquery.com/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="js/anytime.5.0.5.js"></script>
 
 </head>
@@ -123,6 +124,83 @@
 		<div class="row">
 			<div class="span9">
 				<!--Blog Post-->
+                        <div class="row">
+                          <!-- left column -->
+                          <div class="col-md-3">
+                            <div class="text-center">
+                              <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+                              <h6>Upload a different photo...</h6>
+                              
+                              <input type="file" class="form-control">
+                            </div>
+                          </div>
+                          
+                          <!-- edit form column -->
+                          <div class="col-md-9 personal-info">
+                            <div class="alert alert-info alert-dismissable">
+                              <a class="panel-close close" data-dismiss="alert">×</a> 
+                              <i class="fa fa-coffee"></i>
+                              This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                            </div>
+
+                            
+                            <form class="form-horizontal" role="form">
+                              <div class="form-group">
+                                <label class="col-lg-3 control-label">First name:</label>
+                                <div class="col-lg-8">
+                                  <input id="first_name-input" class="form-control" type="text" value="">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-lg-3 control-label">Last name:</label>
+                                <div class="col-lg-8">
+                                  <input id="last_name-input" class="form-control" type="text" value="">
+                                </div>
+                              </div>
+                              
+                              <div class="form-group">
+                                <label class="col-lg-3 control-label">Skills:</label>
+                                <div class="col-lg-8">
+                                  <input id="skill-input" class="form-control" type="text" value="">
+                                </div>
+                              </div>
+                              
+                              <div class="form-group">
+                                <label class="col-lg-3 control-label">Birthday:</label>
+                                <div class="col-lg-8">
+                                  <input id="birthday-input" class="form-control" type="text" value="">
+                                </div>
+                              </div>
+                              
+                              <div class="form-group">
+                                <label class="col-lg-3 control-label">Email:</label>
+                                <div class="col-lg-8">
+                                  <input  class="form-control" type="text" value="">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-md-3 control-label">Password:</label>
+                                <div class="col-md-8">
+                                  <input id="pw-input" class="form-control" type="password" value="">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-md-3 control-label">Confirm password:</label>
+                                <div class="col-md-8">
+                                  <input class="form-control" type="password" value="">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-md-3 control-label"></label>
+                                <div class="col-md-8">
+                                  <input id="save-btn" type="button" class="btn btn-primary" value="Save Changes">
+                                  <span></span>
+                                  <input type="reset" class="btn btn-default" value="Cancel">
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                      </div>
 				<!--  /Post List -->
 
 				<!--Pagination-->
@@ -218,6 +296,53 @@
 	</footer>
 
 	<!--/.Footer-->
+
+<script>
+var uname;
+var user;
+var loadProfile = function(uname){
+    $.get("HandleUser",
+        {
+          uname : uname
+        },
+        function(data) {
+            $.each(JSON.parse(data),function(k,v){
+            	user = v;
+            });
+            console.log(user);
+            $("#first_name-input").val(user.firstname);
+            $("#last_name-input").val(user.lastname);
+            $("#birthday-input").val(user.birthdate);
+    }); 
+}
+
+var postProfile = function(uname){
+	$.post("HandleUser", {
+		action: "update",
+		name : uname,
+		firstname: $("#first_name-input").val(),
+		lastname: $("#last_name-input").val(),
+		birthdate: $("#birthday-input").val(),
+		resume: "",
+		password: $('#pw-input').val()
+	}, function(data){
+		alert(data);
+	});
+}
+
+var bindBtn = function(){
+	$('#save-btn').click( function(){
+		postProfile(uname);
+	});
+};
+
+$(function(){
+	uname = $('#uname').html();
+	loadProfile(uname);
+	bindBtn();
+});
+
+</script>
 
 </body>
 </html>

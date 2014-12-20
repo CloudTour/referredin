@@ -88,7 +88,7 @@
 									<li class="dropdown"><a href="#" class="dropdown-toggle"
 										data-toggle="dropdown"><%=uname%> <b class="caret"></b></a>
 										<ul class="dropdown-menu">
-											<li><a href="#">Profile</a></li>
+											<li><a href="profile.jsp">Profile</a></li>
 											<li><a href="index.jsp">Sign Out</a></li>
 										</ul></li>
 								</ul>
