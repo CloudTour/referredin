@@ -136,6 +136,16 @@ CREATE TABLE IF NOT EXISTS `referredin`.`JobSkill` (
   PRIMARY KEY (`jid`, `skill`))
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `referredin`.`UserLike`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `referredin`.`UserLike` ;
+
+CREATE TABLE IF NOT EXISTS `referredin`.`UserLike` (
+  `jid` INT NOT NULL,
+  `uname` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`jid`, `uname`))
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `referredin`.`Wish`

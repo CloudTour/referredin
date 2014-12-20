@@ -11,8 +11,8 @@ public class DBUpdateUser extends DBTask {
 	private String birthdate;
 	private String resume;
 
-	public DBUpdateUser(String name, String password, String firstname, String lastname,
-			String birthdate, String resume) {
+	public DBUpdateUser(String name, String password, String firstname,
+			String lastname, String birthdate, String resume) {
 		super();
 		this.name = name;
 		this.password = password;
@@ -25,16 +25,22 @@ public class DBUpdateUser extends DBTask {
 	@Override
 	protected String makeSQL() {
 		// TODO Auto-generated method stub
-		return "update User "
-				+ "set password=?, firstname=?, lastname=?, birthdate=?, resume=? "
-				+ "where uname=?";
+		if (password == null || password.isEmpty())
+			return "update User "
+					+ "set firstname=?, lastname=?, birthdate=?, resume=? "
+					+ "where uname=?";
+		else
+			return "update User "
+					+ "set password=?, firstname=?, lastname=?, birthdate=?, resume=? "
+					+ "where uname=?";
 	}
 
 	@Override
 	protected void configure(PreparedStatement statement) throws SQLException {
 		// TODO Auto-generated method stub
 		int i = 0;
-		statement.setString(++i, password);
+		if (password != null && !password.isEmpty())
+			statement.setString(++i, password);
 		statement.setString(++i, firstname);
 		statement.setString(++i, lastname);
 		statement.setString(++i, birthdate);

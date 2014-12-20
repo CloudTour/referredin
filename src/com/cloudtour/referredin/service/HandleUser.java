@@ -14,7 +14,6 @@ import org.json.simple.JSONObject;
 
 import com.cloudtour.referredin.service.db.DBManager;
 import com.cloudtour.referredin.service.db.DBWorker;
-import com.cloudtour.referredin.service.db.task.DBAddJobskill;
 import com.cloudtour.referredin.service.db.task.DBAddUser;
 import com.cloudtour.referredin.service.db.task.DBAddUserskill;
 import com.cloudtour.referredin.service.db.task.DBDeleteUserskill;
@@ -57,7 +56,6 @@ public class HandleUser extends HttpServlet {
 			while (set.next()) {
 				JSONObject obj = new JSONObject();
 				obj.put("uname", set.getString("uname"));
-				obj.put("password", set.getString("password"));
 				obj.put("firstname", set.getString("firstname"));
 				obj.put("lastname", set.getString("lastname"));
 				obj.put("birthdate", set.getString("birthdate"));
@@ -209,6 +207,9 @@ public class HandleUser extends HttpServlet {
 		String lastname = request.getParameter("lastname");
 		String birthdate = request.getParameter("birthdate");
 		String resume = request.getParameter("resume");
+		
+		if (password == null)
+			password = "";
 
 		DBWorker worker = DBManager.getInstance().getWorker();
 		if (worker.update(new DBUpdateUser(name, password, firstname, lastname,
