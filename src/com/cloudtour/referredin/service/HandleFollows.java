@@ -14,12 +14,12 @@ import org.json.simple.JSONObject;
 
 import com.cloudtour.referredin.service.db.DBManager;
 import com.cloudtour.referredin.service.db.DBWorker;
-import com.cloudtour.referredin.service.db.task.DBAddFriend;
-import com.cloudtour.referredin.service.db.task.DBDeleteFriend;
-import com.cloudtour.referredin.service.db.task.DBGetFriends;
+import com.cloudtour.referredin.service.db.task.DBAddFollow;
+import com.cloudtour.referredin.service.db.task.DBDeleteFollow;
+import com.cloudtour.referredin.service.db.task.DBGetFollows;
 
 /**
- * Servlet implementation class HandleFriendship
+ * Servlet implementation class HandleFollows
  */
 public class HandleFollows extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -38,31 +38,12 @@ public class HandleFollows extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String uname = request.getParameter("uname");
-
-		// worker
-		DBWorker worker = DBManager.getInstance().getWorker();
-		ResultSet set = worker.query(new DBGetFriends(uname));
-
-		// response
-		JSONArray array = new JSONArray();
-		try {
-			while (set.next()) {
-				JSONObject obj = new JSONObject();
-				obj.put("uname", set.getString("uname"));
-				obj.put("friend", set.getString("friend"));
-				array.add(obj);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		response.getWriter().write(array.toJSONString());
-		DBManager.getInstance().releaseWorker(worker);
-
+		handleGet(request,response);
+		
 	}
 
+
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -82,20 +63,49 @@ public class HandleFollows extends HttpServlet {
 	private void handleDelete(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String uname = request.getParameter("uname");
-		String friend = request.getParameter("friend");
+		String following = request.getParameter("following");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		worker.update(new DBDeleteFriend(uname, friend));
+		int out = worker.update(new DBDeleteFollow(uname, following));
+		response.getWriter().write(out);
+		DBManager.getInstance().releaseWorker(worker);
 	}
 
 	private void handleAdd(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String uname = request.getParameter("uname");
-		String friend = request.getParameter("friend");
+		String following = request.getParameter("following");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		worker.update(new DBAddFriend(uname, friend));
+		int out = worker.update(new DBAddFollow(uname, following));
+		response.getWriter().write(out);
+		DBManager.getInstance().releaseWorker(worker);
 	}
 
 
+	private void handleGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String uname = request.getParameter("uname");
+
+		// worker
+		DBWorker worker = DBManager.getInstance().getWorker();
+		ResultSet set = worker.query(new DBGetFollows(uname));
+
+		// response
+		JSONArray array = new JSONArray();
+		try {
+			while (set.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("uname", set.getString("uname"));
+				obj.put("following", set.getString("following"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		response.getWriter().write(array.toJSONString());
+		DBManager.getInstance().releaseWorker(worker);
+	}
 }
