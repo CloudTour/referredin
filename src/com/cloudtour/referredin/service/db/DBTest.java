@@ -1,7 +1,5 @@
 package com.cloudtour.referredin.service.db;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import com.cloudtour.referredin.service.db.task.*;
 

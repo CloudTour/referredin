@@ -75,11 +75,14 @@ public class HandleJob extends HttpServlet {
 		String skill = request.getParameter("skill");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		int out = worker.update(new DBDeleteJobskill(jid, skill));
-		response.getWriter().write("" + out);
+		if (worker.update(new DBDeleteJobskill(jid, skill)))
+			response.getWriter().write("{\"result\": \"success\"");
+		else
+			response.getWriter().write("{\"result\": \"Failed to delete.\"");
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void handleDBAddJob(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// String jid = request.getParameter("jid");
@@ -96,19 +99,27 @@ public class HandleJob extends HttpServlet {
 
 		DBWorker worker = DBManager.getInstance().getWorker();
 		ResultSet set = worker.query(new DBGetMaxJobId());
+
 		int jid = -1;
 		try {
 			while (set.next()) {
 				jid = set.getInt("jid") + 1;
 			}
+			if (worker.update(new DBAddJob(jid + "", uname, jtitle, jlocation,
+					jcompany, jyears, jsalary, jpostdate, jtype, jindustry,
+					jwebsite))) {
+				JSONObject obj = new JSONObject();
+				obj.put("result", "success");
+				obj.put("jid", jid);
+			} else {
+				response.getWriter()
+						.write("{\"result\": \"Failed to delete.\"");
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			response.getWriter().write("{\"result\": \"Failed to delete.\"");
 		}
-		int out = worker.update(new DBAddJob(jid + "", uname, jtitle,
-				jlocation, jcompany, jyears, jsalary, jpostdate, jtype,
-				jindustry, jwebsite));
-		response.getWriter().write("" + jid);
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
@@ -127,10 +138,13 @@ public class HandleJob extends HttpServlet {
 		String jwebsite = request.getParameter("jwebsite");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		int out = worker.update(new DBUpdateJobByJid(jid, uname, jtitle,
-				jlocation, jcompany, jyears, jsalary, jpostdate, jtype,
-				jindustry, jwebsite));
-		response.getWriter().write("" + out);
+		if (worker.update(new DBUpdateJobByJid(jid, uname, jtitle, jlocation,
+				jcompany, jyears, jsalary, jpostdate, jtype, jindustry,
+				jwebsite)))
+			response.getWriter().write("{\"result\": \"success\"");
+		else
+			response.getWriter().write("{\"result\": \"Failed to update.\"");
+			
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
@@ -139,8 +153,10 @@ public class HandleJob extends HttpServlet {
 		String jid = request.getParameter("jid");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		int out = worker.update(new DBDeleteJobByJid(jid));
-		response.getWriter().write("" + out);
+		if (worker.update(new DBDeleteJobByJid(jid)))
+			response.getWriter().write("{\"result\": \"success\"");
+		else
+			response.getWriter().write("{\"result\": \"Failed to delete.\"");
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
@@ -149,15 +165,17 @@ public class HandleJob extends HttpServlet {
 		String jid = request.getParameter("jid");
 		String skill = request.getParameter("skill");
 		DBWorker worker = DBManager.getInstance().getWorker();
-		int out = worker.update(new DBAddJobskill(jid, skill));
-		response.getWriter().write("" + out);
+		if (worker.update(new DBAddJobskill(jid, skill))) 
+			response.getWriter().write("{\"result\": \"success\"");
+		else
+			response.getWriter().write("{\"result\": \"Failed to add.\"");
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void handleDBGetJobByUname(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String uname = request.getParameter("uname");
-		System.out.println(uname);
 		DBWorker worker = DBManager.getInstance().getWorker();
 		ResultSet set = worker.query(new DBGetJobByUname(uname));
 
@@ -187,6 +205,7 @@ public class HandleJob extends HttpServlet {
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void handleDBGetJobByJid(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String jid = request.getParameter("jid");
@@ -219,6 +238,7 @@ public class HandleJob extends HttpServlet {
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void handleDBGetJobskillByJid(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String jid = request.getParameter("jid");

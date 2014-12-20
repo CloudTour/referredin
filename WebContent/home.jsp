@@ -81,7 +81,10 @@
 								class="nav-collapse collapse navbar-responsive-collapse postmetadata">
 								<ul>
 									<li class="active"><a href="home.jsp">Home</a></li>
+									<li><a href="">Discover</a></li>
 									<li><a href="post.jsp">My Post</a></li>
+									<li><a href="#">My Like</a></li>
+									<li><a href="#">Inbox</a></li>
 									<li class="dropdown"><a href="#" class="dropdown-toggle"
 										data-toggle="dropdown"><%=uname%> <b class="caret"></b></a>
 										<ul class="dropdown-menu">
@@ -121,7 +124,7 @@
 			<div class="span9">
 				<!--Blog Post-->
 				<div class="">
-					<a class="btn btn-success" onclick="showWin()" href="#">New Post</a> <select
+					<a class="btn btn-success" onclick="showWin()" href="#">New Post</a><select
 						id="sort-select" style="float: right">
 						<option selected>sort by date</option>
 						<option>sort by title</option>

@@ -19,7 +19,7 @@ public class DBWorker {
 		return task.query(conn);
 	}
 	
-	public int update(DBTask task) {
+	public boolean update(DBTask task) {
 		return task.update(conn);
 	}
 	

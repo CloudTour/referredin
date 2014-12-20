@@ -23,20 +23,22 @@ import com.cloudtour.referredin.service.db.task.DBGetFollows;
  */
 public class HandleFollows extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public HandleFollows() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public HandleFollows() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	@SuppressWarnings("unchecked")
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String uname = request.getParameter("uname");
 
@@ -62,17 +64,17 @@ public class HandleFollows extends HttpServlet {
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
-
-	
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String action = request.getParameter("action");
 		if (action == null || action.isEmpty())
 			return;
-		
+
 		if (action.equals("delete")) {
 			handleDelete(request, response);
 		} else if (action.equals("add")) {
@@ -86,8 +88,10 @@ public class HandleFollows extends HttpServlet {
 		String following = request.getParameter("following");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		int out = worker.update(new DBDeleteFollow(uname, following));
-		response.getWriter().write(out);
+		if (worker.update(new DBDeleteFollow(uname, following)))
+			response.getWriter().write("{\"result\": \"success\"");
+		else
+			response.getWriter().write("{\"result\": \"Failed to delete.\"");
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
@@ -97,10 +101,11 @@ public class HandleFollows extends HttpServlet {
 		String following = request.getParameter("following");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		int out = worker.update(new DBAddFollow(uname, following));
-		response.getWriter().write(out);
+		if (worker.update(new DBAddFollow(uname, following)))
+			response.getWriter().write("{\"result\": \"success\"");
+		else
+			response.getWriter().write("{\"result\": \"Failed to add.\"");
 		DBManager.getInstance().releaseWorker(worker);
 	}
-
 
 }
