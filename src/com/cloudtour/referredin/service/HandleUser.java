@@ -18,6 +18,7 @@ import com.cloudtour.referredin.service.db.task.DBAddUser;
 import com.cloudtour.referredin.service.db.task.DBAddUserskill;
 import com.cloudtour.referredin.service.db.task.DBDeleteUserskill;
 import com.cloudtour.referredin.service.db.task.DBGetUser;
+import com.cloudtour.referredin.service.db.task.DBGetUserskill;
 import com.cloudtour.referredin.service.db.task.DBGetUserskillByUname;
 import com.cloudtour.referredin.service.db.task.DBUpdateUser;
 
@@ -92,9 +93,35 @@ public class HandleUser extends HttpServlet {
 			handleDBAddUserskill(request, response);
 		} else if (action.equals("DBDeleteUserskill")) {
 			handleDBDeleteUserskill(request, response);
-		} else if (action.equals("DBGetUserskillByJid")) {
+		} else if (action.equals("DBGetUserskillByUname")) {
 			handleDBGetUserskillByUname(request, response);
+		} else if (action.equals("DBGetUserskill")) {
+			handleDBGetUserskill(request, response);
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private void handleDBGetUserskill(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		DBWorker worker = DBManager.getInstance().getWorker();
+		ResultSet set = worker.query(new DBGetUserskill());
+
+		// response
+		JSONArray array = new JSONArray();
+		try {
+			while (set != null && set.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("skill", set.getString("skill"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		response.getWriter().write(array.toJSONString());
+		DBManager.getInstance().releaseWorker(worker);	
 	}
 
 	@SuppressWarnings("unchecked")
