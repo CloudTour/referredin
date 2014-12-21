@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `referredin`.`User` (
   `lastname` VARCHAR(45) NULL,
   `birthdate` DATETIME NULL,
   `resume` VARCHAR(1000) NULL,
+  `jskill` VARCHAR(1000) NULL,
   PRIMARY KEY (`uname`))
 ENGINE = InnoDB;
 
@@ -44,54 +45,6 @@ CREATE TABLE IF NOT EXISTS `referredin`.`Follows` (
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`uname`, `following`))
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `referredin`.`Industry`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `referredin`.`Industry` ;
-
-CREATE TABLE IF NOT EXISTS `referredin`.`Industry` (
-  `Iname` INT NOT NULL,
-  PRIMARY KEY (`Iname`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `referredin`.`Group`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `referredin`.`Groups` ;
-
-CREATE TABLE IF NOT EXISTS `referredin`.`Groups` (
-  `gid` INT NOT NULL,
-  `uname` VARCHAR(45) NOT NULL,
-  `gname` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`gid`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `referredin`.`GroupUser`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `referredin`.`GroupsUser` ;
-
-CREATE TABLE IF NOT EXISTS `referredin`.`GroupsUser` (
-  `gid` INT NOT NULL,
-  `uname` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`gid`, `uname`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `referredin`.`Skill`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `referredin`.`Skill` ;
-
-CREATE TABLE IF NOT EXISTS `referredin`.`Skill` (
-  `sname` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`sname`))
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `referredin`.`UserSkill`
@@ -146,55 +99,6 @@ CREATE TABLE IF NOT EXISTS `referredin`.`UserLike` (
   `jid` INT NOT NULL,
   `uname` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`jid`, `uname`))
-ENGINE = InnoDB;
-
--- -----------------------------------------------------
--- Table `referredin`.`Wish`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `referredin`.`Wish` ;
-
-CREATE TABLE IF NOT EXISTS `referredin`.`Wish` (
-  `wid` INT NOT NULL,
-  `wtitle` VARCHAR(45) NULL,
-  `wlocation` VARCHAR(45) NULL,
-  `wcompany` VARCHAR(45) NULL,
-  `wpostdate` VARCHAR(45) NULL,
-  PRIMARY KEY (`wid`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `referredin`.`JobType`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `referredin`.`JobType` ;
-
-CREATE TABLE IF NOT EXISTS `referredin`.`JobType` (
-  `tname` INT NOT NULL,
-  PRIMARY KEY (`tname`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `referredin`.`JobList`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `referredin`.`JobList` ;
-
-CREATE TABLE IF NOT EXISTS `referredin`.`JobList` (
-  `uname` VARCHAR(45) NOT NULL,
-  `jid` INT NOT NULL,
-  PRIMARY KEY (`uname`, `jid`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `referredin`.`WishList`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `referredin`.`WishList` ;
-
-CREATE TABLE IF NOT EXISTS `referredin`.`WishList` (
-  `uname` VARCHAR(45) NOT NULL,
-  `jid` VARCHAR(45) NULL,
-  PRIMARY KEY (`uname`))
 ENGINE = InnoDB;
 
 
