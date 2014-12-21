@@ -14,8 +14,7 @@ public class DBGetUser extends DBTask {
 	@Override
 	protected String makeSQL() {
 		// TODO Auto-generated method stub
-		return "select uname, password, firstname, lastname, birthdate, resume "
-				+ "from user "
+		return "select * from user "
 				+ (name == null || name.isEmpty() ? "" : "where uname=?");
 	}
 

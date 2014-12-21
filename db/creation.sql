@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `referredin`.`User` (
   `lastname` VARCHAR(45) NULL,
   `birthdate` DATETIME NULL,
   `resume` VARCHAR(1000) NULL,
-  `jskill` VARCHAR(1000) NULL,
+  `skill` VARCHAR(1000) NULL,
   PRIMARY KEY (`uname`))
 ENGINE = InnoDB;
 

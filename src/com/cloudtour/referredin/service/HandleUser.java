@@ -63,7 +63,7 @@ public class HandleUser extends HttpServlet {
 				obj.put("lastname", set.getString("lastname"));
 				obj.put("birthdate", set.getString("birthdate"));
 				obj.put("resume", set.getString("resume"));
-				obj.put("skill", set.getString("resume"));
+				obj.put("skill", set.getString("skill"));
 				array.add(obj);
 			}
 		} catch (SQLException e) {
