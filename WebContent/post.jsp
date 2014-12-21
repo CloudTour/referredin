@@ -411,7 +411,7 @@
 					$("#state").val(places[1]);
 					$("#city").val(places[2]);
 
-					$.ajax({
+/* 					$.ajax({
 						url : "HandleJob",
 						type : "POST",
 						data : {
@@ -428,7 +428,7 @@
 						}
 						$("#jtags-input").val(str);
 
-					})
+					}) */
 				})
 			}
 
@@ -530,7 +530,7 @@
 						+ "</td></tr> </table>"
 						+ "<div class='postmetadata' style='margin-top: 10px; margin-bottom: 10px'>"
 						+ "<ul> <li><i class='icon-tags'></i> "
-						+ tags
+						+ jobs[i].jskill
 						+ "</li> </ul> </div> </div> ";
 
 				$("#post-div").append(post);

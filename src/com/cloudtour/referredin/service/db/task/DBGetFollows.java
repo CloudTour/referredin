@@ -14,7 +14,7 @@ public class DBGetFollows extends DBTask {
 	@Override
 	protected String makeSQL() {
 		// TODO Auto-generated method stub
-		return "select following, firstname, lastname, birthdate, resume, skill "
+		return "select following, firstname, lastname, birthdate, resume, skill,`group` "
 				+ "from user u, follows f "
 				+ "where f.following=u.uname and f.uname=?;";
 	}
