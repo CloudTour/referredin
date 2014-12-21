@@ -23,6 +23,8 @@
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/anytime.5.0.5.css" rel="stylesheet" />
+<link href="jquery-ui/jquery-ui.css" rel="stylesheet" />
+<link href="css/bootstrap-tokenfield.css" rel="stylesheet" >
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -48,6 +50,8 @@
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="js/anytime.5.0.5.js"></script>
+<script src="jquery-ui/jquery-ui.js"></script>
+<script src="js/bootstrap-tokenfield.js"></script>
 
 </head>
 
@@ -161,7 +165,7 @@
                               <div class="form-group">
                                 <label class="col-lg-3 control-label">Skills:</label>
                                 <div class="col-lg-8">
-                                  <input id="skill-input" class="form-control" type="text" value="">
+                                  <input id="skill-input" class="form-control" type="text" value="" placeholder="Type and hit enter to add a new skill">
                                 </div>
                               </div>
                               
@@ -300,7 +304,9 @@
 <script>
 var uname;
 var user;
-var loadProfile = function(uname){
+var skillList = ['java', 'c', 'javascript', 'python', 'ruby'];
+
+function loadProfile(uname){
     $.get("HandleUser",
         {
           uname : uname
@@ -309,20 +315,21 @@ var loadProfile = function(uname){
             $.each(JSON.parse(data),function(k,v){
             	user = v;
             });
-            console.log(user);
             $("#first_name-input").val(user.firstname);
             $("#last_name-input").val(user.lastname);
             $("#birthday-input").val(user.birthdate);
+            $("#skill-input").val(user.skill);
     }); 
 }
 
-var postProfile = function(uname){
+function postProfile(uname){
 	$.post("HandleUser", {
 		action: "update",
 		name : uname,
 		firstname: $("#first_name-input").val(),
 		lastname: $("#last_name-input").val(),
 		birthdate: $("#birthday-input").val(),
+		skill: $("#skill-input").val(),
 		resume: "",
 		password: $('#pw-input').val()
 	}, function(data){
@@ -330,19 +337,36 @@ var postProfile = function(uname){
 	});
 }
 
-var bindBtn = function(){
+function bindBtn(){
 	$('#save-btn').click( function(){
 		postProfile(uname);
 	});
 };
 
+function getSkillData(){
+	$.get("getSkillData", function(data){
+		var list = JSON.parse(data);
+		skillList = list;
+	});
+}
+
 $(function(){
 	uname = $('#uname').html();
 	loadProfile(uname);
 	bindBtn();
+
+	$('#skill-input').tokenfield({
+			autocomplete: {
+		    	source: skillList,
+			    delay: 100
+		    }
+		}
+	);
 });
 
 </script>
+
+
 
 </body>
 </html>
