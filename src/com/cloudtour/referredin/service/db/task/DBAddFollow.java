@@ -18,7 +18,7 @@ public class DBAddFollow extends DBTask {
 	@Override
 	protected String makeSQL() {
 		// TODO Auto-generated method stub
-		return "insert into Follows values(?, ?);";
+		return "insert into Follows values(?, ?, ?);";
 	}
 
 	@Override
