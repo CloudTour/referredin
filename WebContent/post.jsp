@@ -82,7 +82,7 @@
 								class="nav-collapse collapse navbar-responsive-collapse postmetadata">
 								<ul>
 									<li><a href="home.jsp">Home</a></li>
-									<li><a href="discovery.jsp">Discover</a></li>
+									<li><a href="discover.jsp">Discover</a></li>
 									<li class="active"><a href="post.jsp">My Post</a></li>
 									<li><a href="like.jsp">My Like</a></li>
 									<li><a href="#">Inbox</a></li>
@@ -509,7 +509,7 @@
 						+ jobs[i].jcompany
 						+ "</td>"
 						+ "<td style='width: 20%'><b>Location</b></td> <td style='width: 30%'>"
-						+ (jobs[i].jlocation == null ? "" : jobs[i].jlocation)
+						+ jobs[i].jlocation
 						+ "</td> </tr>"
 						+ "<tr> <td style='width: 20%'><b>type</b></td> <td style='width: 30%'>"
 						+ jobs[i].jtype

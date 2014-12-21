@@ -1,47 +1,34 @@
 -- add users
-insert into user values('zy', 'abc123', 'Zheng', 'Yang', '1982-1-7', '');
-insert into user values('hn', 'abc123', 'Hongjian', 'Niu', '1990-1-1', '');
-insert into user values('kx', 'abc123', 'Ke', 'Xu', '1990-1-1', '');
-insert into user values('yw', 'abc123', 'Yangge', 'Wu', '1990-1-1', '');
-insert into user values('jl', 'abc123', 'Jianqian', 'Liu', '1990-1-1', '');
-insert into user values('justin123', 'abc123', 'Justin', 'Yang', '1990-1-1', '');
+insert into user values('justin@gmail.com', 'abc123', 'Justin', 'Yang', '1990-1-1', '', 'java, c++');
+insert into user values('mike@gmail.com', 'abc123', 'Mike', 'Jackson', '1990-1-1', '', '');
+insert into user values('tom@gmail.com', 'abc123', 'tom', 'Green', '1990-1-1', '', '');
+insert into user values('peter@gmail.com', 'abc123', 'peter', 'Wood', '1990-1-1', '', '');
+insert into user values('jakie@gmail.com', 'abc123', 'jakie', 'chen', '1990-1-1', '', '');
 
 -- add jobs
+insert into job values(1, 'justin@gmail.com', 'Cloud Platform Engineer', 'USA-California-Mountain View', 'Google', '', '', '2014-10-1', 'Fulltime', '', '', 'java, hadoop, AWS');
+insert into job values(2, 'justin@gmail.com', 'Software Engineer', 'USA-California-Mountain View', 'Google', '', '', '2014-11-1', 'Fulltime', '', '', 'C++, java, python');
+insert into job values(3, 'justin@gmail.com', 'PHP Engineer', 'USA-California-Mountain View', 'Google', '', '', '2014-10-20', 'Fulltime', '', '', 'php, javascript');
+insert into job values(4, 'mike@gmail.com', 'Software Engineer', 'USA-California-Sunnyvale', 'Yahoo', '', '', '2014-12-1', 'Fulltime', '', '', 'java, C++');
+insert into job values(5, 'mike@gmail.com', 'Software Engineer', 'USA-California-Sunnyvale', 'Yahoo', '', '', '2014-11-1', 'Fulltime', '', '', 'C++, java, python');
+insert into job values(6, 'mike@gmail.com', 'QA Engineer', 'USA-California-Sunnyvale', 'Yahoo', '', '', '2014-11-1', 'Fulltime', '', '', 'bugzilla, perl');
+insert into job values(7, 'tom@gmail.com', 'Sales Manager', 'USA-California-Redwood City', 'Honda', '', '', '2014-11-1', 'Fulltime', '', '', 'Economics, Google Analytics, MicroStrategy');
+insert into job values(8, 'peter@gmail.com', 'Software Engineer', 'USA-California-Cupertino', 'Facebook', '', '', '2014-12-1', 'Fulltime', '', '', 'java, C++');
+insert into job values(9, 'peter@gmail.com', 'Frontend Engineer', 'USA-California-Cupertino', 'Facebook', '', '', '2014-11-1', 'Fulltime', '', '', 'php, symphony, javascript');
+insert into job values(10, 'peter@gmail.com', 'Product Manager', 'USA-California-Cupertino', 'Facebook', '', '', '2014-11-1', 'Fulltime', '', '', 'User Experience');
+insert into job values(11, 'jakie@gmail.com', 'Backend Engineer', 'USA-California-Cupertino', 'Facebook', '', '', '2014-11-1', 'Fulltime', '', '', 'java, C++, ');
+insert into job values(12, 'jakie@gmail.com', 'Big Data Manager', 'USA-California-Cupertino', 'Facebook', '', '', '2014-11-1', 'Fulltime', '', '', 'Hadoop, Machine Learning');
+
 
 
 
 -- add Follows
-insert into Follows values('zy', 'hn');
-insert into Follows values('zy', 'jl');
-insert into Follows values('zy', 'kx');
-insert into Follows values('zy', 'yw');
+insert into Follows values('justin@gmail.com', 'mike@gmail.com', 'Default');
+insert into Follows values('justin@gmail.com', 'jakie@gmail.com', 'Default');
 
-insert into Follows values('hn', 'zy');
-insert into Follows values('hn', 'jl');
-insert into Follows values('hn', 'kx');
-insert into Follows values('hn', 'yw');
+insert into Follows values('mike@gmail.com', 'peter@gmail.com', 'Default');
+insert into Follows values('mike@gmail.com', 'tom@gmail.com', 'Default');
+insert into Follows values('mike@gmail.com', 'jakie@gmail.com', 'Default');
+insert into Follows values('mike@gmail.com', 'justin@gmail.com', 'Default');
 
-insert into Follows values('kx', 'zy');
-insert into Follows values('kx', 'jl');
-insert into Follows values('kx', 'hn');
-insert into Follows values('kx', 'yw');
-
-insert into Follows values('yw', 'zy');
-insert into Follows values('yw', 'jl');
-insert into Follows values('yw', 'hn');
-insert into Follows values('yw', 'kx');
-
-insert into Follows values('jl', 'zy');
-insert into Follows values('jl', 'yw');
-insert into Follows values('jl', 'hn');
-insert into Follows values('jl', 'kx');
-
-
--- add group
-insert into Groups values(1, 'zy', 'Engineering');
-insert into Groups values(2, 'zy', 'Database');
-insert into GroupsUser values(1, 'kx');
-insert into GroupsUser values(1, 'hn');
-insert into GroupsUser values(1, 'yw');
-insert into GroupsUser values(2, 'hn');
-insert into GroupsUser values(2, 'jl');
+insert into Follows values('jakie@gmail.com', 'tom@gmail.com', 'Default');

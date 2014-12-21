@@ -75,6 +75,7 @@ CREATE TABLE IF NOT EXISTS `referredin`.`Job` (
   `jtype` VARCHAR(45) NULL,
   `jindustry` VARCHAR(45) NULL,
   `jwebsite` VARCHAR(45) NULL,
+  `jskill` VARCHAR(1000) NULL,
   PRIMARY KEY (`jid`))
 ENGINE = InnoDB;
 

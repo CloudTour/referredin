@@ -1,3 +1,4 @@
+
 <%
 	session.setAttribute("uname", null);
 %>
@@ -101,7 +102,7 @@
 										dolor id nibh ultricies vehicula ut id elit.</p>
 									<form>
 										<fieldset>
-											<input class="input-xlarge" type="text" placeholder="Username"
+											<input class="input-xlarge" type="text" placeholder="Email"
 												id="reg-uname-input" required /> <input class="input-xlarge"
 												type="password" placeholder="Password" id="reg-password-input"
 												required /> <input class="input-xlarge" type="password"
@@ -289,8 +290,17 @@
 		}
 
 		function join() {
+			debugger;
 			if ($("#reg-uname-input").val() == "") {
 				alert("Username can't be empty.");
+				$("#reg-uname-input").focus();
+				return;
+			}
+
+			var email = $("#reg-uname-input").val();
+			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			if (!re.test(email)) {
+				alert("Not a valid e-mail address");
 				$("#reg-uname-input").focus();
 				return;
 			}

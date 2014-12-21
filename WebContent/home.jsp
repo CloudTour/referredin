@@ -430,19 +430,13 @@
 						+ jobs[i].jcompany
 						+ "</td>"
 						+ "<td style='width: 20%'><b>Location</b></td> <td style='width: 30%'>"
-						+ (jobs[i].jlocation == null ? "" : jobs[i].jlocation)
+						+ jobs[i].jlocation
 						+ "</td> </tr>"
 						+ "<tr> <td style='width: 20%'><b>type</b></td> <td style='width: 30%'>"
 						+ jobs[i].jtype
 						+ "</td>"
 						+ "<td style='width: 20%'><b>Industry</b></td> <td style='width: 30%'>"
 						+ jobs[i].jindustry
-						+ "</td> </tr>"
-						+ "<tr> <td style='width: 20%'><b>Salary</b></td> <td style='width: 30%'>"
-						+ jobs[i].jsalary
-						+ "</td>"
-						+ "<td style='width: 20%'><b>Years</b></td> <td style='width: 30%'>"
-						+ jobs[i].jyears
 						+ "</td> </tr>"
 						+ "<tr> <td style='width: 20%'><b>Author</b></td> <td style='width: 30%'>"
 						+ jobs[i].uname

@@ -331,18 +331,6 @@
 			jobs = [];
 			$("#popup").fadeOut();
 
-			var follows = [];
-			$.ajax({
-				url : "HandleFollows",
-				type : "GET",
-				async : false,
-				data : {
-					uname : $("#uname").html(),
-				}
-			}).done(function(data) {
-				follows = JSON.parse(data);
-			});
-			
 			likes = [];
 			$.ajax({
 				url:"HandleLike",
@@ -356,19 +344,20 @@
 				likes = JSON.parse(data);
 			})
 
-			for (var i = 0; i < follows.length; ++i) {
-				$.ajax({
-					url : "HandleJob",
-					type : "POST",
-					async : false,
-					data : {
-						action : "DBGetJobByUname",
-						uname : follows[i].following
-					}
-				}).done(function(data) {
-					jobs = JSON.parse(data);
-				});
-			}
+
+			debugger;
+			$.ajax({
+				url : "HandleDiscover",
+				type : "GET",
+				async : false,
+				data : {
+					action : "DBDiscoverJobsByFollow",
+					uname : $("#uname").html(),
+				}
+			}).done(function(data) {
+				debugger;
+				jobs = JSON.parse(data);
+			});
 
 			jobs.sort(byTime);
 			for (var i = 0; i < jobs.length; ++i) {
@@ -437,12 +426,6 @@
 						+ "</td>"
 						+ "<td style='width: 20%'><b>Industry</b></td> <td style='width: 30%'>"
 						+ jobs[i].jindustry
-						+ "</td> </tr>"
-						+ "<tr> <td style='width: 20%'><b>Salary</b></td> <td style='width: 30%'>"
-						+ jobs[i].jsalary
-						+ "</td>"
-						+ "<td style='width: 20%'><b>Years</b></td> <td style='width: 30%'>"
-						+ jobs[i].jyears
 						+ "</td> </tr>"
 						+ "<tr> <td style='width: 20%'><b>Author</b></td> <td style='width: 30%'>"
 						+ jobs[i].uname

@@ -81,7 +81,7 @@
 								class="nav-collapse collapse navbar-responsive-collapse postmetadata">
 								<ul>
 									<li><a href="home.jsp">Home</a></li>
-									<li><a href="discovery.jsp">Discover</a></li>
+									<li><a href="discover.jsp">Discover</a></li>
 									<li><a href="post.jsp">My Post</a></li>
 									<li class="active"><a href="like.jsp">My Like</a></li>
 									<li><a href="#">Inbox</a></li>

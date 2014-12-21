@@ -51,9 +51,13 @@ public class HandleFollows extends HttpServlet {
 		try {
 			while (set != null && set.next()) {
 				JSONObject obj = new JSONObject();
-				obj.put("uname", set.getString("uname"));
-				obj.put("following", set.getString("following"));
+				obj.put("uname", set.getString("following"));
 				obj.put("group", set.getString("group"));
+				obj.put("firstname", set.getString("firstname"));
+				obj.put("lastname", set.getString("lastname"));
+				obj.put("birthdate", set.getString("birthdate"));
+				obj.put("resume", set.getString("resume"));
+				obj.put("skill", set.getString("skill"));
 				array.add(obj);
 			}
 		} catch (SQLException e) {
