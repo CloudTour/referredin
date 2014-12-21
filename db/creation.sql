@@ -41,6 +41,7 @@ DROP TABLE IF EXISTS `referredin`.`Follows` ;
 CREATE TABLE IF NOT EXISTS `referredin`.`Follows` (
   `uname` VARCHAR(45) NOT NULL,
   `following` VARCHAR(45) NOT NULL,
+  `group` varchar(45) NOT NULL,
   PRIMARY KEY (`uname`, `following`))
 ENGINE = InnoDB;
 

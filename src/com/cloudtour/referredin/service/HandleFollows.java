@@ -53,6 +53,7 @@ public class HandleFollows extends HttpServlet {
 				JSONObject obj = new JSONObject();
 				obj.put("uname", set.getString("uname"));
 				obj.put("following", set.getString("following"));
+				obj.put("group", set.getString("group"));
 				array.add(obj);
 			}
 		} catch (SQLException e) {
@@ -99,9 +100,12 @@ public class HandleFollows extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String uname = request.getParameter("uname");
 		String following = request.getParameter("following");
+		String group = request.getParameter("group");
+		if (group == null || group.isEmpty()) 
+			group = "Default";
 
 		DBWorker worker = DBManager.getInstance().getWorker();
-		if (worker.update(new DBAddFollow(uname, following)))
+		if (worker.update(new DBAddFollow(uname, following, group)))
 			response.getWriter().write("{\"result\": \"success\"");
 		else
 			response.getWriter().write("{\"result\": \"Failed to add.\"");
