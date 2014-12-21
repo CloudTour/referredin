@@ -97,6 +97,7 @@ public class HandleLike extends HttpServlet {
 		// TODO Auto-generated method stub
 		String uname = request.getParameter("uname");
 		String jid = request.getParameter("jid");
+		System.out.println(uname + jid);
 
 		DBWorker worker = DBManager.getInstance().getWorker();
 		if (worker.update(new DBDeleteLike(uname, jid)))

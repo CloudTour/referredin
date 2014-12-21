@@ -401,44 +401,31 @@
 		}
 
 		var jobs = [];
-		var likes = [];
 		function init() {
-			jobs = [];
 			$("#popup").fadeOut();
+			jobs = [];
 
-			var follows = [];
+			var like = [];
 			$.ajax({
-				url : "HandleFollows",
+				url : "HandleLike",
 				type : "GET",
 				async : false,
 				data : {
+					action : "DBGetLikeByUname",
 					uname : $("#uname").html(),
 				}
 			}).done(function(data) {
-				follows = JSON.parse(data);
+				like = JSON.parse(data);
 			});
-			
-			likes = [];
-			$.ajax({
-				url:"HandleLike",
-				type:"GET",
-				async:false,
-				data :{
-					action: "DBGetLikeByUname",
-					uname : $("#uname").html(),
-				}
-			}).done(function(data) {
-				likes = JSON.parse(data);
-			})
 
-			for (var i = 0; i < follows.length; ++i) {
+			for (var i = 0; i < like.length; ++i) {
 				$.ajax({
 					url : "HandleJob",
 					type : "POST",
 					async : false,
 					data : {
-						action : "DBGetJobByUname",
-						uname : follows[i].following
+						action : "DBGetJobByJid",
+						jid : like[i].jid
 					}
 				}).done(function(data) {
 					jobs = JSON.parse(data);
@@ -482,18 +469,32 @@
 						tags += ", ";
 					tags += "<a href='#'>" + jobs[i].tags[j].skill + "</a>";
 				}
-				debugger;
+				/* 				var post = "<div class='blog-post'> <ul style='float: right'> <li class='dropdown' style='list-style-type: none;'><a href='#' class='dropdown-toggle' data-toggle='dropdown' >More <b class='caret'></b></a> <ul class='dropdown-menu'> <li><a href='#' onclick='showWin(" + jobs[i].jid
+				 + ")'>Modify</a></li><li><a href='#' onclick='del("
+				 + jobs[i].jid
+				 + ")'>Delete</a></li>  </ul></li> </ul> <table style='width: 100%'> <tr> <td style='width: 30%'><b>Title</b></td> <td style='width: 70%'>"
+				 + jobs[i].jtitle
+				 + "</td> </tr> <tr> <td style='width: 30%'><b>Posting Date</b></td> <td style='width: 70%'>"
+				 + jobs[i].jpostdate
+				 + "</td> </tr> <tr> <td style='width: 30%'><b>Company</b></td> <td style='width: 70%'>"
+				 + jobs[i].jcompany
+				 + "</td> </tr> <tr> <td style='width: 30%'><b>Location</b></td> <td style='width: 70%'>"
+				 + (jobs[i].jlocation == null ? "" : jobs[i].jlocation)
+				 + "</td> </tr> "
+				 + "<tr> <td style='width: 30%'><b>Author</b></td> <td style='width: 70%'>"
+				 + jobs[i].uname
+				 + "</td> </tr> "
+				 + "</table> <div class='postmetadata' style='margin-top: 10px; margin-bottom: 10px'> <ul> <li><i class='icon-tags'></i> "
+				 + tags
+				 + "</li> </ul> </div> <a class='btn btn-primary' style='' href='#'>Read More</a> </div> "; */
+				 debugger;
 				var post = "<div class='blog-post'>"
 						+ "<ul style='float: right'>"
 						+ "<li class='dropdown' style='list-style-type: none;'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>More <b class='caret'></b></a>"
 						+ "<ul class='dropdown-menu'> "
-						+ "<li><a href='#' id='like-"
+						+ "<li><a href='#' onclick='del("
 						+ jobs[i].jid
-						+ "' onclick='like("
-						+ jobs[i].jid
-						+ ")'>"
-						+ ((jobs[i].jid in likes) ? "Dislike" : "Like")
-						+ "</a></li></ul></li> </ul>"
+						+ ")'>Dislike</a></li></ul></li> </ul>"
 						+ "<table style='width: 100%'>"
 						+ "<tr><td style='width: 20%'><b>Title</b></td><td style='width: 30%'>"
 						+ jobs[i].jtitle
@@ -636,35 +637,21 @@
 
 		}
 
-		function like(jid) {
-			debugger;
-			var cur = $("#like-" + jid).html();
-			if (cur == "Like") {
-				$.ajax({
-					url : "HandleLike",
-					type : "POST",
-					data : {
-						action : "DBAddLike",
-						uname : $("#uname").html(),
-						jid : jid
-					}
-				}).done(function(data) {
-					$("#like-" + jid).html("Dislike");
-				})
-			} else {
-				$.ajax({
-					url : "HandleLike",
-					type : "POST",
-					data : {
-						action : "DBDeleteLike",
-						uname : $("#uname").html(),
-						jid : jid
-					}
-				}).done(function(data) {
-					$("#like-" + jid).html("Like");
-				})
+		function del(jid) {
+			if (!confirm("Are you sure to dislike it?"))
+				return;
 
-			}
+			$.ajax({
+				url : "HandleLike",
+				type : "POST",
+				data : {
+					action : "DBDeleteLike",
+					uname : $("#uname").html(),
+					jid : jid
+				}
+			}).done(function(data) {
+				init();
+			})
 
 		}
 

@@ -229,6 +229,7 @@ public class HandleJob extends HttpServlet {
 				obj.put("jpostdate", set.getString("jpostdate"));
 				obj.put("jtype", set.getString("jtype"));
 				obj.put("jindustry", set.getString("jindustry"));
+				obj.put("jwebsite", set.getString("jwebsite"));
 				array.add(obj);
 			}
 		} catch (SQLException e) {

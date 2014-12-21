@@ -397,6 +397,7 @@
 
 		var jobs = [];
 		function init() {
+			jobs = [];
 			$("#popup").fadeOut();
 
 			$.ajax({

@@ -23,8 +23,8 @@ public class DBAddLike extends DBTask {
 	protected void configure(PreparedStatement statement) throws SQLException {
 		// TODO Auto-generated method stub
 		int i = 0;
-		statement.setString(++i, uname);
 		statement.setString(++i, jid);
+		statement.setString(++i, uname);
 	}
 
 }
