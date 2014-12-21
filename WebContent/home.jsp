@@ -81,7 +81,7 @@
 								class="nav-collapse collapse navbar-responsive-collapse postmetadata">
 								<ul>
 									<li class="active"><a href="home.jsp">Home</a></li>
-									<li><a href="">Discover</a></li>
+									<li><a href="discover.jsp">Discover</a></li>
 									<li><a href="post.jsp">My Post</a></li>
 									<li><a href="like.jsp">My Like</a></li>
 									<li><a href="#">Inbox</a></li>
@@ -131,82 +131,7 @@
 					</select>
 				</div>
 
-				<!-- Popup -->
-				<div class="row blog-post" id="popup"
-					style="display: none; height: 100%; position: absolute; z-index: 10;">
-					<p style="display: none;" id="jid"></p>
 
-					<div class="well col-md-3 center login-box" style="width: 100%">
-						<form class="form-horizontal">
-							<fieldset>
-
-								<!-- title-->
-								<div class="input-group input-group-lg">
-									<input id="jtitle-input" type="text" class="form-control"
-										placeholder="Job Title"> <input id="jpostdate-input"
-										type="text" class="form-control" placeholder="Posting date">
-									<script>
-										AnyTime.picker('jpostdate-input');
-									</script>
-								</div>
-								<div class="clearfix"></div>
-								<br>
-
-
-								<!-- company -->
-								<div class="input-group input-group-lg">
-									<input id="jcompany-input" type="text" class="form-control"
-										placeholder="Company"> <input id="jlocation-input" type="text"
-										class="form-control" placeholder="Location">
-								</div>
-								<div class="clearfix"></div>
-								<br>
-
-								<!-- years -->
-								<div class="input-group input-group-lg">
-									<input id="jsalary-input" type="text" class="form-control"
-										placeholder="Salary"> <input id="jyears-input" type="text"
-										class="form-control" placeholder="Years">
-								</div>
-								<div class="clearfix"></div>
-								<br>
-
-								<!-- job type-->
-								<div class="input-group input-group-lg">
-									<select id="jtype-select"><option>Job Type</option></select> <select
-										id="jindustry"><option>Industry</option></select>
-								</div>
-								<div class="clearfix"></div>
-								<br>
-
-								<!-- website -->
-								<div class="input-group input-group-lg">
-									<input id="jwebsite-input" type="text" class="form-control"
-										placeholder="Website"> <input id="jtags-input" type="text"
-										class="form-control" placeholder="Tags">
-								</div>
-								<div class="clearfix"></div>
-								<br>
-
-								<!-- Add button -->
-								<div style="float: left; width: 50%" class="input-group input-group-lg">
-									<p class="center col-md-10">
-										<button type="button" class="btn btn-primary" onclick="post()">Post</button>
-									</p>
-								</div>
-								<!-- Cancel button -->
-								<div style="float: right; width: 50%" class="input-group input-group-lg">
-									<p class="center col-md-10">
-										<button type="button" class="btn btn-default" onclick="cancel()">Cancel</button>
-									</p>
-								</div>
-
-							</fieldset>
-						</form>
-					</div>
-					<!--/span-->
-				</div>
-				<!-- /Popup -->
 				<hr>
 
 				<!--  Post List -->

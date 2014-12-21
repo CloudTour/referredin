@@ -80,10 +80,10 @@
 							<div
 								class="nav-collapse collapse navbar-responsive-collapse postmetadata">
 								<ul>
-									<li class="active"><a href="home.jsp">Home</a></li>
-									<li><a href="">Discover</a></li>
+									<li><a href="home.jsp">Home</a></li>
+									<li><a href="discovery.jsp">Discover</a></li>
 									<li><a href="post.jsp">My Post</a></li>
-									<li><a href="like.jsp">My Like</a></li>
+									<li class="active"><a href="like.jsp">My Like</a></li>
 									<li><a href="#">Inbox</a></li>
 									<li class="dropdown"><a href="#" class="dropdown-toggle"
 										data-toggle="dropdown"><%=uname%> <b class="caret"></b></a>

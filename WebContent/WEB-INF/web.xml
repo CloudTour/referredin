@@ -59,4 +59,14 @@
     <servlet-name>HandleLike</servlet-name>
     <url-pattern>/HandleLike</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>HandleDiscover</display-name>
+    <servlet-name>HandleDiscover</servlet-name>
+    <servlet-class>com.cloudtour.referredin.service.HandleDiscover</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HandleDiscover</servlet-name>
+    <url-pattern>/HandleDiscover</url-pattern>
+  </servlet-mapping>
 </web-app>
