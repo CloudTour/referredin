@@ -318,7 +318,7 @@ function loadProfile(uname){
             $("#first_name-input").val(user.firstname);
             $("#last_name-input").val(user.lastname);
             $("#birthday-input").val(user.birthdate);
-            $("#skill-input").val(user.skill);
+            $("#skill-input").tokenfield('setTokens', user.skill);
     }); 
 }
 

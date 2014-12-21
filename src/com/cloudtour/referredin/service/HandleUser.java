@@ -87,7 +87,7 @@ public class HandleUser extends HttpServlet {
 			return;
 
 		if (action.equals("update")) {
-			handleUpdate(request, response);
+			handleUpdateUserWithSkill(request, response);
 		} else if (action.equals("add")) {
 			handleAdd(request, response);
 		} else if (action.equals("DBUpdateUserWithSkill")) {
