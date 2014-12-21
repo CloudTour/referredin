@@ -15,10 +15,11 @@ public class DBAddJob extends DBTask {
 	private String jtype; 
 	private String jindustry; 
 	private String jwebsite;
+	private String jskill;
 	
 	public DBAddJob(String jid, String uname, String jtitle, String jlocation,
 			String jcompany, String jyears, String jsalary, String jpostdate,
-			String jtype, String jindustry, String jwebsite) {
+			String jtype, String jindustry, String jwebsite, String jskill) {
 		super();
 		this.jid = jid;
 		this.uname = uname;
@@ -31,6 +32,7 @@ public class DBAddJob extends DBTask {
 		this.jtype = jtype;
 		this.jindustry = jindustry;
 		this.jwebsite = jwebsite;
+		this.jskill = jskill;
 	}
 
 	@Override
@@ -40,7 +42,7 @@ public class DBAddJob extends DBTask {
 //				+ "(uname,jtitle,jlocation,jcompany,jyears,"
 //				+ "jsalary,jpostdate,jtype,jindustry,jwebsite) "
 //				+ "values(?,?,?,?,?,?,?,?,?,?)";
-		return "insert into job values(?,?,?,?,?,?,?,?,?,?,?)";
+		return "insert into job values(?,?,?,?,?,?,?,?,?,?,?,?)";
 	}
 
 	@Override
@@ -58,6 +60,7 @@ public class DBAddJob extends DBTask {
 		statement.setString(++i, jtype);
 		statement.setString(++i, jindustry);
 		statement.setString(++i, jwebsite);
+		statement.setString(++i, jskill);
 	}
 
 }

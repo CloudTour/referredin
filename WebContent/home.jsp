@@ -112,7 +112,7 @@
 		<div class="row">
 			<div class="span12">
 				<div class="page-header">
-					<h1>Jobs</h1>
+					<h1>Friend's Post</h1>
 				</div>
 			</div>
 		</div>
@@ -328,7 +328,6 @@
 		var jobs = [];
 		var likes = [];
 		function init() {
-			jobs = [];
 			$("#popup").fadeOut();
 
 			var follows = [];
@@ -344,6 +343,7 @@
 			});
 			
 			likes = [];
+			var li = 0;
 			$.ajax({
 				url:"HandleLike",
 				type:"GET",
@@ -353,10 +353,14 @@
 					uname : $("#uname").html(),
 				}
 			}).done(function(data) {
-				likes = JSON.parse(data);
+				var result = JSON.parse(data);
+				for (var i = 0; i < result.length; ++i)
+					likes[li++] = result[i].jid;
 			})
 
-				debugger;
+			debugger;
+			jobs = [];
+			var count = 0;
 			for (var i = 0; i < follows.length; ++i) {
 				$.ajax({
 					url : "HandleJob",
@@ -368,10 +372,14 @@
 					}
 				}).done(function(data) {
 					debugger;
-					jobs = JSON.parse(data);
+					var result = JSON.parse(data);
+					for (var j = 0; j < result.length; ++j) {
+						jobs[count++] = result[j];
+					}
 				});
 			}
 
+			debugger;
 			jobs.sort(byTime);
 			for (var i = 0; i < jobs.length; ++i) {
 				$.ajax({
@@ -419,7 +427,7 @@
 						+ "' onclick='like("
 						+ jobs[i].jid
 						+ ")'>"
-						+ ((jobs[i].jid in likes) ? "Dislike" : "Like")
+						+ ((likes.indexOf(jobs[i].jid) != -1) ? "Dislike" : "Like")
 						+ "</a></li></ul></li> </ul>"
 						+ "<table style='width: 100%'>"
 						+ "<tr><td style='width: 20%'><b>Title</b></td><td style='width: 30%'>"

@@ -112,7 +112,7 @@
 		<div class="row">
 			<div class="span12">
 				<div class="page-header">
-					<h1>Jobs</h1>
+					<h1>My Like</h1>
 				</div>
 			</div>
 		</div>
@@ -403,7 +403,6 @@
 		var jobs = [];
 		function init() {
 			$("#popup").fadeOut();
-			jobs = [];
 
 			var like = [];
 			$.ajax({
@@ -415,9 +414,12 @@
 					uname : $("#uname").html(),
 				}
 			}).done(function(data) {
+				debugger;
 				like = JSON.parse(data);
 			});
 
+			jobs = [];
+			var jcount = 0;
 			for (var i = 0; i < like.length; ++i) {
 				$.ajax({
 					url : "HandleJob",
@@ -428,7 +430,9 @@
 						jid : like[i].jid
 					}
 				}).done(function(data) {
-					jobs = JSON.parse(data);
+					var result = JSON.parse(data);
+					for (var j = 0; j < result.length; ++j)
+						jobs[jcount++] = result[j];
 				});
 			}
 
@@ -469,25 +473,6 @@
 						tags += ", ";
 					tags += "<a href='#'>" + jobs[i].tags[j].skill + "</a>";
 				}
-				/* 				var post = "<div class='blog-post'> <ul style='float: right'> <li class='dropdown' style='list-style-type: none;'><a href='#' class='dropdown-toggle' data-toggle='dropdown' >More <b class='caret'></b></a> <ul class='dropdown-menu'> <li><a href='#' onclick='showWin(" + jobs[i].jid
-				 + ")'>Modify</a></li><li><a href='#' onclick='del("
-				 + jobs[i].jid
-				 + ")'>Delete</a></li>  </ul></li> </ul> <table style='width: 100%'> <tr> <td style='width: 30%'><b>Title</b></td> <td style='width: 70%'>"
-				 + jobs[i].jtitle
-				 + "</td> </tr> <tr> <td style='width: 30%'><b>Posting Date</b></td> <td style='width: 70%'>"
-				 + jobs[i].jpostdate
-				 + "</td> </tr> <tr> <td style='width: 30%'><b>Company</b></td> <td style='width: 70%'>"
-				 + jobs[i].jcompany
-				 + "</td> </tr> <tr> <td style='width: 30%'><b>Location</b></td> <td style='width: 70%'>"
-				 + (jobs[i].jlocation == null ? "" : jobs[i].jlocation)
-				 + "</td> </tr> "
-				 + "<tr> <td style='width: 30%'><b>Author</b></td> <td style='width: 70%'>"
-				 + jobs[i].uname
-				 + "</td> </tr> "
-				 + "</table> <div class='postmetadata' style='margin-top: 10px; margin-bottom: 10px'> <ul> <li><i class='icon-tags'></i> "
-				 + tags
-				 + "</li> </ul> </div> <a class='btn btn-primary' style='' href='#'>Read More</a> </div> "; */
-				 debugger;
 				var post = "<div class='blog-post'>"
 						+ "<ul style='float: right'>"
 						+ "<li class='dropdown' style='list-style-type: none;'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>More <b class='caret'></b></a>"
@@ -506,19 +491,13 @@
 						+ jobs[i].jcompany
 						+ "</td>"
 						+ "<td style='width: 20%'><b>Location</b></td> <td style='width: 30%'>"
-						+ (jobs[i].jlocation == null ? "" : jobs[i].jlocation)
+						+ jobs[i].jlocation
 						+ "</td> </tr>"
 						+ "<tr> <td style='width: 20%'><b>type</b></td> <td style='width: 30%'>"
 						+ jobs[i].jtype
 						+ "</td>"
 						+ "<td style='width: 20%'><b>Industry</b></td> <td style='width: 30%'>"
 						+ jobs[i].jindustry
-						+ "</td> </tr>"
-						+ "<tr> <td style='width: 20%'><b>Salary</b></td> <td style='width: 30%'>"
-						+ jobs[i].jsalary
-						+ "</td>"
-						+ "<td style='width: 20%'><b>Years</b></td> <td style='width: 30%'>"
-						+ jobs[i].jyears
 						+ "</td> </tr>"
 						+ "<tr> <td style='width: 20%'><b>Author</b></td> <td style='width: 30%'>"
 						+ jobs[i].uname

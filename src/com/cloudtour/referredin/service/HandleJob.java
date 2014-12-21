@@ -96,8 +96,7 @@ public class HandleJob extends HttpServlet {
 		String jtype = request.getParameter("jtype");
 		String jindustry = request.getParameter("jindustry");
 		String jwebsite = request.getParameter("jwebsite");
-		System.out.println(jtype);
-		System.out.println(jpostdate);
+		String jskill = request.getParameter("jskill");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
 		ResultSet set = worker.query(new DBGetMaxJobId());
@@ -113,7 +112,7 @@ public class HandleJob extends HttpServlet {
 			}
 			if (worker.update(new DBAddJob(jid + "", uname, jtitle, jlocation,
 					jcompany, jyears, jsalary, jpostdate, jtype, jindustry,
-					jwebsite))) {
+					jwebsite, jskill))) {
 				JSONObject obj = new JSONObject();
 				obj.put("result", "success");
 				obj.put("jid", jid);
@@ -142,11 +141,12 @@ public class HandleJob extends HttpServlet {
 		String jtype = request.getParameter("jtype");
 		String jindustry = request.getParameter("jindustry");
 		String jwebsite = request.getParameter("jwebsite");
+		String jskill = request.getParameter("jskill");
 
 		DBWorker worker = DBManager.getInstance().getWorker();
 		if (worker.update(new DBUpdateJobByJid(jid, uname, jtitle, jlocation,
 				jcompany, jyears, jsalary, jpostdate, jtype, jindustry,
-				jwebsite)))
+				jwebsite, jskill)))
 			response.getWriter().write("{\"result\": \"success\"}");
 		else
 			response.getWriter().write("{\"result\": \"Failed to update.\"}");
@@ -201,6 +201,7 @@ public class HandleJob extends HttpServlet {
 				obj.put("jtype", set.getString("jtype"));
 				obj.put("jindustry", set.getString("jindustry"));
 				obj.put("jwebsite", set.getString("jwebsite"));
+				obj.put("jskill", set.getString("jskill"));
 				array.add(obj);
 			}
 		} catch (SQLException e) {
@@ -235,6 +236,7 @@ public class HandleJob extends HttpServlet {
 				obj.put("jtype", set.getString("jtype"));
 				obj.put("jindustry", set.getString("jindustry"));
 				obj.put("jwebsite", set.getString("jwebsite"));
+				obj.put("jskill", set.getString("jskill"));
 				array.add(obj);
 			}
 		} catch (SQLException e) {

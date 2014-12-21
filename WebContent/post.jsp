@@ -22,6 +22,7 @@
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/anytime.5.0.5.css" rel="stylesheet" />
+<link href="css/bootstrap-tokenfield.css" rel="stylesheet" >
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -48,6 +49,7 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/anytime.5.0.5.js"></script>
 <script src="js/countries.js"></script>
+<script src="js/bootstrap-tokenfield.js"></script>
 
 </head>
 
@@ -214,8 +216,8 @@
 
 								<!-- tags -->
 								<div class="input-group input-group-lg">
-									<input id="jtags-input" type="text" class="form-control"
-										placeholder="Tags">
+									<input id="jtags-input" type="text" class="input-xxlarge" 
+										placeholder="Required Skills">
 								</div>
 								<div class="clearfix"></div>
 								<br>
@@ -383,6 +385,7 @@
 				$("#state").prop("selectedIndex", 0);
 				$("#city").val("");
 				$("#jid").html("");
+				$("#jtags-input").tokenfield('setTokens', "");
 			} else {
 				$.ajax({
 					url : "HandleJob",
@@ -393,19 +396,20 @@
 					}
 				}).done(function(data) {
 					var jobs = JSON.parse(data);
-					
+					debugger;	
 					var places = jobs[0].jlocation.split("-");
 					$("#jid").html(jid);
 					$("#jtitle-input").val(jobs[0].jtitle);
 					$("#jpostdate-input").val(jobs[0].jpostdate);
-					$("#jlocation-input").val(jobs[0].jlocation);
 					$("#jcompany-input").val(jobs[0].jcompany);
 					$("#jwebsite-input").val(jobs[0].jwebsite);
 					$("#jtype-select").val(jobs[0].jtype);
 					$("#jindustry-select").val(jobs[0].jindustry);
-					$("#country").prop(places[0]);
-					$("#state").prop(places[1]);
-					$("#city").prop(places[2]);
+					$("#jtags-input").tokenfield('setTokens', jobs[0].jskill);
+					$("#country").val(places[0]);
+					$("#country").change();
+					$("#state").val(places[1]);
+					$("#city").val(places[2]);
 
 					$.ajax({
 						url : "HandleJob",
@@ -436,6 +440,7 @@
 		function init() {
 			jobs = [];
 			$("#popup").fadeOut();
+			$("#jtags-input").tokenfield();
 
 			$.ajax({
 				url : "HandleJob",
@@ -605,6 +610,7 @@
 							jcompany : $("#jcompany-input").val(),
 							jlocation : location, 
 							jwebsite : $("#jwebsite-input").val(),
+							jskill : $("#jtags-input").val(),
 							jtype : type,
 							jindustry : industry
 						}

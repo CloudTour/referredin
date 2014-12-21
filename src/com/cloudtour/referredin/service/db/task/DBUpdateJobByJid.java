@@ -15,10 +15,11 @@ public class DBUpdateJobByJid extends DBTask {
 	private String jtype; 
 	private String jindustry; 
 	private String jwebsite;
+	private String jskill;
 	
 	public DBUpdateJobByJid(String jid, String uname, String jtitle, String jlocation,
 			String jcompany, String jyears, String jsalary, String jpostdate,
-			String jtype, String jindustry, String jwebsite) {
+			String jtype, String jindustry, String jwebsite, String jskill) {
 		super();
 		this.jid = jid;
 		this.uname = uname;
@@ -31,6 +32,7 @@ public class DBUpdateJobByJid extends DBTask {
 		this.jtype = jtype;
 		this.jindustry = jindustry;
 		this.jwebsite = jwebsite;
+		this.jskill = jskill;
 	}
 
 	@Override
@@ -38,7 +40,7 @@ public class DBUpdateJobByJid extends DBTask {
 		// TODO Auto-generated method stub
 		return "update job "
 				+ "set uname=?, jtitle=?, jlocation=?, jcompany=?, jyears=?, "
-				+ "jsalary=?, jpostdate=?, jtype=?, jindustry=?, jwebsite=? "
+				+ "jsalary=?, jpostdate=?, jtype=?, jindustry=?, jwebsite=?, jskill=? "
 				+ "where jid=?";
 	}
 
@@ -56,8 +58,8 @@ public class DBUpdateJobByJid extends DBTask {
 		statement.setString(++i, jtype);
 		statement.setString(++i, jindustry);
 		statement.setString(++i, jwebsite);
+		statement.setString(++i, jskill);
 		statement.setString(++i, jid);
-		System.out.println(statement);
 	}
 
 }
