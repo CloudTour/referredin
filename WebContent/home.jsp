@@ -356,6 +356,7 @@
 				likes = JSON.parse(data);
 			})
 
+				debugger;
 			for (var i = 0; i < follows.length; ++i) {
 				$.ajax({
 					url : "HandleJob",
@@ -366,6 +367,7 @@
 						uname : follows[i].following
 					}
 				}).done(function(data) {
+					debugger;
 					jobs = JSON.parse(data);
 				});
 			}
