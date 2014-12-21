@@ -64,7 +64,7 @@
 						required /> <input class="form-control" type="password"
 						placeholder="Password" id="password-input" required />
 					<button class="btn btn-middle btn-success"
-						style="margin-bottom: 10px; margin-left: 10px" href="#" onclick="signin()">Sign
+						style="margin-bottom: 10px; margin-left: 10px" onclick="signin()">Sign
 						In</button>
 
 				</div>

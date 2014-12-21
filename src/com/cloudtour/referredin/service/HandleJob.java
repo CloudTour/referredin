@@ -96,14 +96,20 @@ public class HandleJob extends HttpServlet {
 		String jtype = request.getParameter("jtype");
 		String jindustry = request.getParameter("jindustry");
 		String jwebsite = request.getParameter("jwebsite");
+		System.out.println(jtype);
+		System.out.println(jpostdate);
 
 		DBWorker worker = DBManager.getInstance().getWorker();
 		ResultSet set = worker.query(new DBGetMaxJobId());
 
 		int jid = -1;
 		try {
-			while (set.next()) {
-				jid = set.getInt("jid") + 1;
+			if (set == null)
+				jid = 0;
+			else {
+				while (set.next()) {
+					jid = set.getInt("jid") + 1;
+				}
 			}
 			if (worker.update(new DBAddJob(jid + "", uname, jtitle, jlocation,
 					jcompany, jyears, jsalary, jpostdate, jtype, jindustry,
@@ -113,13 +119,12 @@ public class HandleJob extends HttpServlet {
 				obj.put("jid", jid);
 				response.getWriter().write(obj.toJSONString());
 			} else {
-				response.getWriter()
-						.write("{\"result\": \"Failed to delete.\"}");
+				response.getWriter().write("{\"result\": \"Failed to add.\"}");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			response.getWriter().write("{\"result\": \"Failed to delete.\"}");
+			response.getWriter().write("{\"result\": \"Failed to add.\"}");
 		}
 		DBManager.getInstance().releaseWorker(worker);
 	}
@@ -145,7 +150,7 @@ public class HandleJob extends HttpServlet {
 			response.getWriter().write("{\"result\": \"success\"}");
 		else
 			response.getWriter().write("{\"result\": \"Failed to update.\"}");
-			
+
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
@@ -166,7 +171,7 @@ public class HandleJob extends HttpServlet {
 		String jid = request.getParameter("jid");
 		String skill = request.getParameter("skill");
 		DBWorker worker = DBManager.getInstance().getWorker();
-		if (worker.update(new DBAddJobskill(jid, skill))) 
+		if (worker.update(new DBAddJobskill(jid, skill)))
 			response.getWriter().write("{\"result\": \"success\"}");
 		else
 			response.getWriter().write("{\"result\": \"Failed to add.\"}");

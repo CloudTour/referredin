@@ -47,6 +47,7 @@
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/anytime.5.0.5.js"></script>
+<script src="js/countries.js"></script>
 
 </head>
 
@@ -81,7 +82,10 @@
 								class="nav-collapse collapse navbar-responsive-collapse postmetadata">
 								<ul>
 									<li class="active"><a href="home.jsp">Home</a></li>
+									<li><a href="">Discover</a></li>
 									<li><a href="post.jsp">My Post</a></li>
+									<li><a href="like.jsp">My Like</a></li>
+									<li><a href="#">Inbox</a></li>
 									<li class="dropdown"><a href="#" class="dropdown-toggle"
 										data-toggle="dropdown"><%=uname%> <b class="caret"></b></a>
 										<ul class="dropdown-menu">
@@ -137,11 +141,13 @@
 						<form class="form-horizontal">
 							<fieldset>
 
-								<!-- title-->
+								<!-- title company postdate-->
 								<div class="input-group input-group-lg">
 									<input id="jtitle-input" type="text" class="form-control"
-										placeholder="Job Title"> <input id="jpostdate-input"
-										type="text" class="form-control" placeholder="Posting date">
+										placeholder="Job Title"> <input id="jcompany-input"
+										type="text" class="form-control" placeholder="Company"> <input
+										id="jpostdate-input" type="text" class="form-control"
+										placeholder="Posting date">
 									<script>
 										AnyTime.picker('jpostdate-input');
 									</script>
@@ -150,37 +156,66 @@
 								<br>
 
 
-								<!-- company -->
+								<!-- location -->
 								<div class="input-group input-group-lg">
-									<input id="jcompany-input" type="text" class="form-control"
-										placeholder="Company"> <input id="jlocation-input" type="text"
-										class="form-control" placeholder="Location">
-								</div>
-								<div class="clearfix"></div>
-								<br>
-
-								<!-- years -->
-								<div class="input-group input-group-lg">
-									<input id="jsalary-input" type="text" class="form-control"
-										placeholder="Salary"> <input id="jyears-input" type="text"
-										class="form-control" placeholder="Years">
+									<select id="country" name="country"></select> <select name="state"
+										id="state"></select>
+									<script>
+										populateCountries("country", "state");
+									</script>
+									<input id="city" type="text" class="form-control"
+										placeholder="City"> `
 								</div>
 								<div class="clearfix"></div>
 								<br>
 
 								<!-- job type-->
 								<div class="input-group input-group-lg">
-									<select id="jtype-select"><option>Job Type</option></select> <select
-										id="jindustry-select"><option>Industry</option></select>
+									<select id="jindustry-select">
+										<option>Industry</option>
+										<option>Accounting</option>
+										<option>Finance</option>
+										<option>Administration</option>
+										<option>Business Development</option>
+										<option>Business Management</option>
+										<option>Business Consulting</option>
+										<option>Contingent</option>
+										<option>Contractor</option>
+										<option>Customer Service and Support</option>
+										<option>E-Commerce</option>
+										<option>Editorial</option>
+										<option>Engineering</option>
+										<option>Facilities</option>
+										<option>Human Resources</option>
+										<option>Information Systems</option>
+										<option>Labs</option>
+										<option>Legal</option>
+										<option>Marketing</option>
+										<option>Permanent</option>
+										<option>Product Management</option>
+										<option>Product Marketing</option>
+										<option>Project</option>
+										<option>Program Management</option>
+										<option>Real Estate</option>
+										<option>Sales</option>
+										<option>Sciences</option>
+										<option>User Experience and Design</option>
+									</select> <select id="jtype-select">
+										<option>Job Type</option>
+										<option>Fulltime</option>
+										<option>Parttime</option>
+										<option>Contract</option>
+										<option>Internship</option>
+									</select> <input id="jwebsite-input" type="text" class="form-control"
+										placeholder="Website">
 								</div>
 								<div class="clearfix"></div>
 								<br>
 
-								<!-- website -->
+								<!-- tags -->
 								<div class="input-group input-group-lg">
-									<input id="jwebsite-input" type="text" class="form-control"
-										placeholder="Website"> <input id="jtags-input" type="text"
-										class="form-control" placeholder="Tags">
+									<input id="jtags-input" type="text" class="form-control"
+										placeholder="Tags">
 								</div>
 								<div class="clearfix"></div>
 								<br>
@@ -340,14 +375,14 @@
 			if (jid == null) {
 				$("#jtitle-input").val("");
 				$("#jpostdate-input").val("");
-				$("#jlocation-input").val("");
 				$("#jcompany-input").val("");
-				$("#jsalary-input").val("");
-				$("#jyears-input").val("");
 				$("#jwebsite-input").val("");
 				$("#jtags-input").val("");
 				$("#jtype-select").prop("selectedIndex", 0);
 				$("#jindustry-select").prop("selectedIndex", 0);
+				$("#country").prop("selectedIndex", 0);
+				$("#state").prop("selectedIndex", 0);
+				$("#city").val("");
 				$("#jid").html("");
 			} else {
 				$.ajax({
@@ -359,16 +394,19 @@
 					}
 				}).done(function(data) {
 					var jobs = JSON.parse(data);
+					
+					var places = jobs[0].jlocation.split("-");
 					$("#jid").html(jid);
 					$("#jtitle-input").val(jobs[0].jtitle);
 					$("#jpostdate-input").val(jobs[0].jpostdate);
 					$("#jlocation-input").val(jobs[0].jlocation);
 					$("#jcompany-input").val(jobs[0].jcompany);
-					$("#jsalary-input").val(jobs[0].jsalary);
-					$("#jyears-input").val(jobs[0].jyears);
 					$("#jwebsite-input").val(jobs[0].jwebsite);
 					$("#jtype-select").val(jobs[0].jtype);
 					$("#jindustry-select").val(jobs[0].jindustry);
+					$("#country").prop(places[0]);
+					$("#state").prop(places[1]);
+					$("#city").prop(places[2]);
 
 					$.ajax({
 						url : "HandleJob",
@@ -451,21 +489,6 @@
 						tags += ", ";
 					tags += "<a href='#'>" + jobs[i].tags[j].skill + "</a>";
 				}
-				/* 				var post = "<div class='blog-post'> <ul style='float: right'> <li class='dropdown' style='list-style-type: none;'><a href='#' class='dropdown-toggle' data-toggle='dropdown' >More <b class='caret'></b></a> <ul class='dropdown-menu'> <li><a href='#' onclick='showWin("
-				 + jobs[i].jid
-				 + ")'>Modify</a></li><li><a href='#' onclick='del("
-				 + jobs[i].jid
-				 + ")'>Delete</a></li>  </ul></li> </ul> <table style='width: 100%'> <tr> <td style='width: 30%'><b>Title</b></td> <td style='width: 70%'>"
-				 + jobs[i].jtitle
-				 + "</td> </tr> <tr> <td style='width: 30%'><b>Posting Date</b></td> <td style='width: 70%'>"
-				 + jobs[i].jpostdate
-				 + "</td> </tr> <tr> <td style='width: 30%'><b>Company</b></td> <td style='width: 70%'>"
-				 + jobs[i].jcompany
-				 + "</td> </tr> <tr> <td style='width: 30%'><b>Location</b></td> <td style='width: 70%'>"
-				 + jobs[i].jlocation
-				 + "</td> </tr> </table> <div class='postmetadata' style='margin-top: 10px; margin-bottom: 10px'> <ul> <li><i class='icon-tags'></i> "
-				 + tags
-				 + "</li> </ul> </div> <a class='btn btn-primary' style='' href='#'>Read More</a> </div> "; */
 				var post = "<div class='blog-post'>"
 						+ "<ul style='float: right'>"
 						+ "<li class='dropdown' style='list-style-type: none;'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>More <b class='caret'></b></a>"
@@ -494,12 +517,6 @@
 						+ "</td>"
 						+ "<td style='width: 20%'><b>Industry</b></td> <td style='width: 30%'>"
 						+ jobs[i].jindustry
-						+ "</td> </tr>"
-						+ "<tr> <td style='width: 20%'><b>Salary</b></td> <td style='width: 30%'>"
-						+ jobs[i].jsalary
-						+ "</td>"
-						+ "<td style='width: 20%'><b>Years</b></td> <td style='width: 30%'>"
-						+ jobs[i].jyears
 						+ "</td> </tr>"
 						+ "<tr> <td style='width: 20%'><b>Author</b></td> <td style='width: 30%'>"
 						+ jobs[i].uname
@@ -566,6 +583,15 @@
 			}
 
 			debugger;
+			var location = "";
+			if ($("#country").prop("selectedIndex") > 0)
+				location += $("#country").val();
+			location += "-";
+			if ($("#state").prop("selectedIndex") > 0)
+				location += $("#state").val();
+			location += "-";
+			location += $("#city").val();
+
 			$.ajax(
 					{
 						url : "HandleJob",
@@ -578,9 +604,7 @@
 							jtitle : $("#jtitle-input").val(),
 							jpostdate : $("#jpostdate-input").val(),
 							jcompany : $("#jcompany-input").val(),
-							jlocation : $("#jlocation-input").val(),
-							jsalary : $("#jsalary-input").val(),
-							jyears : $("#jyears-input").val(),
+							jlocation : location, 
 							jwebsite : $("#jwebsite-input").val(),
 							jtype : type,
 							jindustry : industry
