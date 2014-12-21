@@ -86,14 +86,14 @@
 								class="nav-collapse collapse navbar-responsive-collapse postmetadata">
 								<ul>
 									<li class="active"><a href="home.jsp">Home</a></li>
-									<li><a href="">Discover</a></li>
+									<li><a href="discover.jsp">Discover</a></li>
 									<li><a href="post.jsp">My Post</a></li>
-									<li><a href="#">My Like</a></li>
-									<li><a href="#">Inbox</a></li>
+									<li><a href="like.jsp">My Like</a></li>
+									<li><a href="follow.jsp">My Follow</a></li>
 									<li class="dropdown"><a href="#" class="dropdown-toggle"
 										data-toggle="dropdown"><%=uname%> <b class="caret"></b></a>
 										<ul class="dropdown-menu">
-											<li><a href="#">Profile</a></li>
+											<li><a href="profile.jsp">Profile</a></li>
 											<li><a href="index.jsp">Sign Out</a></li>
 										</ul></li>
 								</ul>

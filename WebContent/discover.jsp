@@ -84,7 +84,7 @@
 									<li class="active"><a href="discover.jsp">Discover</a></li>
 									<li><a href="post.jsp">My Post</a></li>
 									<li><a href="like.jsp">My Like</a></li>
-									<li><a href="#">Inbox</a></li>
+									<li><a href="follow.jsp">My Follow</a></li>
 									<li class="dropdown"><a href="#" class="dropdown-toggle"
 										data-toggle="dropdown"><%=uname%> <b class="caret"></b></a>
 										<ul class="dropdown-menu">

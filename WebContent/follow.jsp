@@ -8,7 +8,6 @@
 
 	String uname = (String) session.getAttribute("uname");
 %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,12 +18,10 @@
 <meta name="author" content="">
 
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/anytime.5.0.5.css" rel="stylesheet" />
-<!-- <link href="jquery-ui/jquery-ui.css" rel="stylesheet" /> -->
-<!-- <link href="css/bootstrap-tokenfield.css" rel="stylesheet" > -->
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -48,15 +45,13 @@
 <!-- SCRIPT 
     ============================================================-->
 <script src="http://code.jquery.com/jquery.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="js/anytime.5.0.5.js"></script>
-<!-- <script src="jquery-ui/jquery-ui.js"></script> -->
-<!-- <script src="js/bootstrap-tokenfield.js"></script> -->
 
 </head>
 
 <body>
-	<p style="display: none;" id="uname"><%=uname%></p>
+	<div style="display: none;" id="uname"><%=uname%></div>
 
 	<!-- Nav -->
 	<div class="placeholder"></div>
@@ -86,14 +81,14 @@
 								class="nav-collapse collapse navbar-responsive-collapse postmetadata">
 								<ul>
 									<li class="active"><a href="home.jsp">Home</a></li>
-									<li><a href="">Discover</a></li>
+									<li><a href="discover.jsp">Discover</a></li>
 									<li><a href="post.jsp">My Post</a></li>
-									<li><a href="#">My Like</a></li>
-									<li><a href="#">Inbox</a></li>
+									<li><a href="like.jsp">My Like</a></li>
+									<li><a href="follow.jsp">My Follow</a></li>
 									<li class="dropdown"><a href="#" class="dropdown-toggle"
 										data-toggle="dropdown"><%=uname%> <b class="caret"></b></a>
 										<ul class="dropdown-menu">
-											<li><a href="#">Profile</a></li>
+											<li><a href="profile.jsp">Profile</a></li>
 											<li><a href="index.jsp">Sign Out</a></li>
 										</ul></li>
 								</ul>
@@ -115,9 +110,9 @@
 		<!--PAGE TITLE-->
 
 		<div class="row">
-			<div class="col-md-12">
+			<div class="span12">
 				<div class="page-header">
-					<h1>Following</h1>
+					<h1>Follow</h1>
 				</div>
 			</div>
 		</div>
@@ -126,30 +121,12 @@
 
 
 		<div class="row">
-			<div class="col-md-9">
-				<!--Blog Post-->
-                    <div class="row">
-                      <!-- left column -->
-                      <div class="col-md-3">
-                        <div class="text-center">
-                        </div>
-                      </div>
-                          
-                      <!-- center -->
-                      <div class="col-md-9 personal-info">
-                        <div class="alert alert-info alert-dismissable">
-                          <a class="panel-close close" data-dismiss="alert">×</a> 
-                          <i class="fa fa-coffee"></i>
-                          This is an <strong>.alert</strong>. Use this to show important messages to the user.
-                        </div>
+			<div class="span9">
 
-                        <div id="following-list" >
 
-                        </div>
-                        
-                      </div>
-                    </div>
-				<!--  /Post List -->
+				<!--  Follow List -->
+                <div id="following-list" class="list-group"></div>
+				<!--  /Follow List -->
 
 				<!--Pagination-->
 				<div class="pagination">
@@ -162,7 +139,7 @@
 
 
 
-			<div class="col-md-3">
+			<div class="span3">
 				<div class="side-bar">
 
 					<h3>Categories</h3>
@@ -203,6 +180,12 @@
 
 
 					</ul>
+
+
+
+
+
+
 				</div>
 
 
@@ -226,11 +209,11 @@
 	<footer>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="span6">
 					Copyright copy 2013 Shapebootstrap | All Rights Reserved <br> <small>Aliquam
 						tincidunt mauris eu risus.</small>
 				</div>
-				<div class="col-md-6">
+				<div class="span6">
 					<div class="social pull-right">
 						<a href="#"><img src="img/social/googleplus.png" alt=""></a> <a
 							href="#"><img src="img/social/dribbble.png" alt=""></a> <a href="#"><img
@@ -244,6 +227,9 @@
 	</footer>
 
 	<!--/.Footer-->
+
+
+
 
 <script>
 var uname='';
@@ -263,13 +249,15 @@ function renderFollowList(){
 	console.log('render!!!!!!!!!!');
 	var list = $('#following-list');
 	$.each(following_list, function(k,follow){
-		dom = '<div><div  '
-			+'" >' 
-			+ follow.following 
-			+ '<a class="follow-btn btn btn-default active" href="#" data-isfollowed="true" data-following="'
+		dom = '<div class="list-group-item">'
+			+ '<div class="row"> '
+			+ '<div class="col-md-2">' +follow.following +'</div>'
+			+ '<button class="follow-btn btn btn-default btn-xs active " href="#" data-isfollowed="true" data-following="'
 			+ follow.following
-			+'" >Unfollow</a>'
-			+'</div></div>'
+			+'" >Unfollow</button></div>'
+			+ '<p>'
+			+ follow.firstname +" " + follow.lastname
+			+'</p></div>'
 
 		list.append($(dom));
 	});
@@ -284,6 +272,7 @@ function renderFollowList(){
 			action: action,
 			uname: uname,
 			following: $(this).data('following')
+
 		};
 
 		function cb(data){
