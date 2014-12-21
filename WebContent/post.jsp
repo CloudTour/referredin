@@ -164,7 +164,7 @@
 										populateCountries("country", "state");
 									</script>
 									<input id="city" type="text" class="form-control"
-										placeholder="City"> `
+										placeholder="City"> 
 								</div>
 								<div class="clearfix"></div>
 								<br>
@@ -221,18 +221,17 @@
 								<br>
 
 								<!-- Add button -->
-								<div style="float: left; width: 50%" class="input-group input-group-lg">
-									<p class="center col-md-10">
-										<button type="button" class="btn btn-primary" onclick="post()">Post</button>
-									</p>
-								</div>
-								<!-- Cancel button -->
-								<div style="float: right; width: 50%" class="input-group input-group-lg">
-									<p class="center col-md-10">
-										<button type="button" class="btn btn-default" onclick="cancel()">Cancel</button>
-									</p>
-								</div>
+								<table>
+									<tr>
+										<td>
+											<button type="button" class="btn btn-primary" onclick="post()">Post</button>
+										</td>
+										<td>
+											<button type="button" class="btn btn-default" onclick="cancel()">Cancel</button>
+										</td>
 
+									</tr>
+								</table>
 							</fieldset>
 						</form>
 					</div>

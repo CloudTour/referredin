@@ -318,7 +318,7 @@
 				url : "HandleUser",
 				type : "POST",
 				data : {
-					action : "add",
+					action : "DBAddUserWithSkill",
 					uname : $("#reg-uname-input").val(),
 					password : $("#reg-password-input").val(),
 				}
