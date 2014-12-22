@@ -133,7 +133,7 @@
 		<div class="row">
 
 
-			<div class="span6 offset3">
+			<div class="span5 offset3">
 
 
 				<!--  Follow List -->
@@ -152,7 +152,7 @@
 
 
 
-			<div class="span3">
+			<div class="span3 offset1">
 				<div class="side-bar">
 
 					<h3>Categories</h3>
@@ -223,22 +223,11 @@
 		<div class="container">
 			<div class="row">
 				<div class="span6">
-					Copyright copy 2013 Shapebootstrap | All Rights Reserved <br> <small>Aliquam
-						tincidunt mauris eu risus.</small>
-				</div>
-				<div class="span6">
-					<div class="social pull-right">
-						<a href="#"><img src="img/social/googleplus.png" alt=""></a> <a
-							href="#"><img src="img/social/dribbble.png" alt=""></a> <a href="#"><img
-							src="img/social/twitter.png" alt=""></a> <a href="#"><img
-							src="img/social/dribbble.png" alt=""></a> <a href="#"><img
-							src="img/social/rss.png" alt=""></a>
-					</div>
+					Copyright copy 2013 Cloud Tour | All Rights Reserved <br>
 				</div>
 			</div>
 		</div>
 	</footer>
-
 	<!--/.Footer-->
 
 
@@ -266,7 +255,7 @@ function renderFollowList(){
 		dom = '<div class="">'
 			+ '<div class="row"> '
 			+ '<div class="span1 "><div class="text-info  text-center">   ' +follow.following +'</div></div>'
-			+ '<button class="follow-btn btn active " href="#" data-isfollowed="true" data-following="'
+			+ '<button class="follow-btn btn active pull-right" href="#" data-isfollowed="true" data-following="'
 			+ follow.following
 			+'" >Unfollow</button></div>'
 			+ '<div class="well">'
