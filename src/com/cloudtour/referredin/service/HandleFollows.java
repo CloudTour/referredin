@@ -94,9 +94,9 @@ public class HandleFollows extends HttpServlet {
 
 		DBWorker worker = DBManager.getInstance().getWorker();
 		if (worker.update(new DBDeleteFollow(uname, following)))
-			response.getWriter().write("{\"result\": \"success\"");
+			response.getWriter().write("{\"result\": \"success\"}");
 		else
-			response.getWriter().write("{\"result\": \"Failed to delete.\"");
+			response.getWriter().write("{\"result\": \"Failed to delete.\"}");
 		DBManager.getInstance().releaseWorker(worker);
 	}
 
@@ -110,9 +110,9 @@ public class HandleFollows extends HttpServlet {
 
 		DBWorker worker = DBManager.getInstance().getWorker();
 		if (worker.update(new DBAddFollow(uname, following, group)))
-			response.getWriter().write("{\"result\": \"success\"");
+			response.getWriter().write("{\"result\": \"success\"}");
 		else
-			response.getWriter().write("{\"result\": \"Failed to add.\"");
+			response.getWriter().write("{\"result\": \"Failed to add.\"}");
 		DBManager.getInstance().releaseWorker(worker);
 	}
 

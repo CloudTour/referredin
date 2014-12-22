@@ -64,10 +64,7 @@
 				<!-- /LOGO -->
 
 				<!-- Search Bar -->
-				<div style="float: left">
-					<input class="input" type="text" placeholder="Search Jobs" />
 
-				</div>
 				<!-- /Search Bar -->
 
 				<!-- MAIN NAVIGATION -->
@@ -118,14 +115,30 @@
 		</div>
 
 		<!-- /. PAGE TITLE-->
+		<div class="row">
+			<div class="span7 offset2">
+				<div class="input-prepend">
+				  <span class="add-on">Email:</span>
+				  <input id="addFollow-input" class="span7" type="text" placeholder="Type email here to follow">
+				  <input id="addFollow-btn" type="button" class="btn btn-success" value="Add">
+				</div>
+			</div>
+		</div>
+		<br/>
+		<br/>
+		<br/>
+
 
 
 		<div class="row">
-			<div class="span9">
+
+
+			<div class="span6 offset3">
 
 
 				<!--  Follow List -->
-                <div id="following-list" class="list-group"></div>
+                <!-- <div id="following-list"  style="border:1px solid #ddd; border-radius:4px 0 4px 0; padding:3px 7px;"></div> -->
+                <div id="following-list"  ></div>
 				<!--  /Follow List -->
 
 				<!--Pagination-->
@@ -248,16 +261,18 @@ function loadFollowList(uname){
 function renderFollowList(){
 	console.log('render!!!!!!!!!!');
 	var list = $('#following-list');
+	list.empty();
 	$.each(following_list, function(k,follow){
-		dom = '<div class="list-group-item">'
+		dom = '<div class="">'
 			+ '<div class="row"> '
-			+ '<div class="col-md-2">' +follow.following +'</div>'
-			+ '<button class="follow-btn btn btn-default btn-xs active " href="#" data-isfollowed="true" data-following="'
+			+ '<div class="span1 "><div class="text-info  text-center">   ' +follow.following +'</div></div>'
+			+ '<button class="follow-btn btn active " href="#" data-isfollowed="true" data-following="'
 			+ follow.following
 			+'" >Unfollow</button></div>'
-			+ '<p>'
-			+ follow.firstname +" " + follow.lastname
-			+'</p></div>'
+			+ '<div class="well">'
+			+ "<p>Name: "+follow.firstname +" " + follow.lastname +"</P>"
+			+ "<p>Discription:</p> "
+			+'</div></div>'
 
 		list.append($(dom));
 	});
@@ -300,6 +315,25 @@ function renderFollowList(){
 
 $(function(){
 	uname = $('#uname').html();
+
+	$('#addFollow-btn').click(function(){
+		var newFollowing = $('#addFollow-input').val();
+		var payload = {
+			action: 'add',
+			uname: uname,
+			following: newFollowing
+		}
+		$.post('HandleFollows', payload, function(data){
+			var result = JSON.parse(data);
+			if(result.result == "success"){
+				location.reload();
+			}
+			else{
+				alert("Failed! Please confirm the email.");
+			}
+
+		});
+	})
 
 	loadFollowList(uname);
 
