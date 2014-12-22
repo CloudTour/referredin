@@ -461,11 +461,11 @@
 						+ "<a href='Mailto:"+joblist[i].uname +"'>"
 						+ joblist[i].uname
 						+ "</a><br>"
-						+ " (friend of "
+						+ (joblist[i].friendfirstname == undefined ? "" : " (friend of "
 						+ joblist[i].friendfirstname
 						+ " "
 						+ joblist[i].friendlastname
-						+ ")"
+						+ ")")
 						+ "</td>"
 						+ "<td style='width: 20%'><b>Description</b></td> <td style='width: 30%'>"
 						+ "<a href='"+joblist[i].jwebsite+"'> Job Description"
