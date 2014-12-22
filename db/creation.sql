@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `referredin`.`User` (
   `password` VARCHAR(45) NOT NULL,
   `firstname` VARCHAR(45) NULL,
   `lastname` VARCHAR(45) NULL,
-  `birthdate` DATETIME NULL,
+  `birthdate` DATE NULL,
   `resume` VARCHAR(1000) NULL,
   `skill` VARCHAR(1000) NULL,
   PRIMARY KEY (`uname`))
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `referredin`.`Job` (
   `jcompany` VARCHAR(45) NULL,
   `jyears` VARCHAR(45) NULL,
   `jsalary` VARCHAR(45) NULL,
-  `jpostdate` DATETIME NULL,
+  `jpostdate` DATE NULL,
   `jtype` VARCHAR(45) NULL,
   `jindustry` VARCHAR(45) NULL,
   `jwebsite` VARCHAR(45) NULL,

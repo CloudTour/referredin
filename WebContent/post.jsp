@@ -148,11 +148,11 @@
 									<input id="jtitle-input" type="text" class="form-control"
 										placeholder="Job Title"> <input id="jcompany-input"
 										type="text" class="form-control" placeholder="Company"> <input
-										id="jpostdate-input" type="text" class="form-control"
+										id="jpostdate-input" type="date" class="form-control"
 										placeholder="Posting date">
-									<script>
+<!-- 									<script>
 										AnyTime.picker('jpostdate-input');
-									</script>
+									</script> -->
 								</div>
 								<div class="clearfix"></div>
 								<br>
