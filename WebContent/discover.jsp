@@ -340,6 +340,7 @@
 
 			debugger;
 			likes = [];
+			var li = 0;
 			$.ajax({
 				url : "HandleLike",
 				type : "GET",
@@ -349,7 +350,10 @@
 					uname : $("#uname").html(),
 				}
 			}).done(function(data) {
-				likes = JSON.parse(data);
+				debugger;
+				var result = JSON.parse(data);
+				for (var i = 0; i < result.length; ++i)
+					likes[li++] = result[i].jid;
 			})
 
 			follows = {};
