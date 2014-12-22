@@ -130,13 +130,9 @@
 				<!--Blog Post-->
                         <div class="row">
                           <!-- left column -->
-                          <div class="span3">
-                            <div class="text-center">
-                            </div>
-                          </div>
                           
                           <!-- edit form column -->
-                          <div class="span9 personal-info">
+                          <div class="span8 offset2 personal-info">
                             
                             <form class="form-horizontal" role="form">
                               <div class="control-group">
@@ -209,52 +205,6 @@
 			</div>
 
 
-
-			<div class="span3">
-				<div class="side-bar">
-
-					<h3>Categories</h3>
-					<ul class="nav nav-list">
-						<li><a href="#">Web Design</a></li>
-						<li><a href="#">Typography</a></li>
-						<li><a href="#">Inspiration</a></li>
-						<li><a href="#">Business</a></li>
-					</ul>
-
-				</div>
-
-
-				<div class="side-bar">
-					<h3>Tags</h3>
-
-					<a href="#">cras</a>, <a href="#">sit</a>, <a href="#">amet</a>, <a
-						href="#">nibh</a>, <a href="#">libero</a>, <a href="#">gravida</a>, <a
-						href="#">nulla</a>
-				</div>
-
-
-				<div class="side-bar">
-					<h3>Recent Post</h3>
-
-					<ul class="recent-post">
-						<li><a href=""><strong>The standard chunk of Lorem Ipsum
-									used since </strong></a> <small><i class="icon-user"></i> <a href="#">Author
-									Name</a>, <i class="icon-calendar"></i>Jul 20th, 2013</small></li>
-
-						<li><a href=""><strong>The standard chunk of Lorem Ipsum
-									used since </strong></a> <small><i class="icon-user"></i> <a href="#">Author
-									Name</a>, <i class="icon-calendar"></i>Jul 20th, 2013</small></li>
-
-						<li><a href=""><strong>The standard chunk of Lorem Ipsum
-									used since </strong></a> <small><i class="icon-user"></i> <a href="#">Author
-									Name</a>, <i class="icon-calendar"></i>Jul 20th, 2013</small></li>
-
-
-					</ul>
-				</div>
-
-
-			</div>
 
 
 			<!--==================-->
