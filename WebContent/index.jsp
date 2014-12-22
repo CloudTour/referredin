@@ -62,7 +62,7 @@
 				<!-- Search Bar -->
 				<div style="float: right">
 					<input type="text" class="form-control" placeholder="Name" id="uname-input"
-						required /> <input class="form-control" type="password"
+						required/> <input class="form-control" type="password"
 						placeholder="Password" id="password-input" required />
 					<button class="btn btn-middle btn-success"
 						style="margin-bottom: 10px; margin-left: 10px" onclick="signin()">Sign
@@ -307,20 +307,20 @@
 
 			if ($("#reg-password-input").val() == "") {
 				alert("Password can't be empty.");
-				$("#reg-passowrd-input").focus();
+				$("#reg-password-input").focus();
 				return;
 			}
 
 			if ($("#reg-repeat-password-input").val() == "") {
 				alert("Password can't be empty.");
-				$("#reg-repeat-passowrd-input").focus();
+				$("#reg-repeat-password-input").focus();
 				return;
 			}
 
 			if ($("#reg-password-input").val() != $(
 					"#reg-repeat-password-input").val()) {
 				alert("Passwords don't match.");
-				$("#reg-passowrd-input").focus();
+				$("#reg-password-input").focus();
 				return;
 			}
 

@@ -372,6 +372,7 @@
 			
 			pageLoad(joblist, 0);
 		}
+
 		function showWin(jid) {
 			if (jid == null) {
 				$("#jtitle-input").val("");
@@ -452,17 +453,18 @@
 				})
 			}
 
-			var numOfPages = Math.ceil(Object.keys(jobs).length / 5);
+			pageLoad(jobs, 0);
+		}
+
+		function pageLoad(joblist, page) {
+			var numOfPages = Math.ceil(Object.keys(joblist).length / 5);
 			$("#pages li").remove();
 			for (var i = 1; i <= numOfPages; ++i) {
 				$("#pages").append(
 						"<li><a href='#' onclick='pageChange(" + i + ")'>" + i
 								+ "</a></li>");
 			}
-			pageLoad(jobs, 0);
-		}
 
-		function pageLoad(joblist, page) {
 			$("#post-div div").remove();
 			var count = -1;
 			for (var i = page; i < page + 5 && i < joblist.length; ++i) {
@@ -515,7 +517,7 @@
 		}
 
 		function pageChange(page) {
-			pageLoad((page - 1) * 5);
+			pageLoad(jobs, (page - 1) * 5);
 		}
 
 		function byCompany(a, b) {
@@ -532,7 +534,7 @@
 				jobs.sort(byTime);
 			else
 				jobs.sort(byCompany);
-			pageLoad(0);
+			pageLoad(jobs, 0);
 		})
 
 		function post() {
