@@ -163,16 +163,10 @@
                               <div class="control-group">
                                 <label class="control-label">Birthday:</label>
                                 <div class="controls">
-                                  <input id="birthday-input" class="form-control input-xxlarge" type="text" value="">
+                                  <input id="birthday-input" class="form-control input-xxlarge" type="date" value="">
                                 </div>
                               </div>
-                              
-                              <div class="control-group">
-                                <label class="control-label">Email:</label>
-                                <div class="controls">
-                                  <input  class="form-control input-xxlarge" type="text" value="">
-                                </div>
-                              </div>
+
                               <div class="control-group">
                                 <label class="control-label">Password:</label>
                                 <div class="controls">
