@@ -91,7 +91,7 @@
 									<li class="dropdown"><a href="#" class="dropdown-toggle"
 										data-toggle="dropdown"><%=uname%> <b class="caret"></b></a>
 										<ul class="dropdown-menu">
-											<li><a href="#">Profile</a></li>
+											<li><a href="profile.jsp">Profile</a></li>
 											<li><a href="index.jsp">Sign Out</a></li>
 										</ul></li>
 								</ul>
@@ -216,7 +216,7 @@
 
 								<!-- tags -->
 								<div class="input-group input-group-lg">
-									<input id="jtags-input" type="text" class="input-xxlarge" 
+									<input id="jtags-input" type="text" class="input-xxlarge" style="border:1px"
 										placeholder="Required Skills">
 								</div>
 								<div class="clearfix"></div>
@@ -411,24 +411,6 @@
 					$("#state").val(places[1]);
 					$("#city").val(places[2]);
 
-/* 					$.ajax({
-						url : "HandleJob",
-						type : "POST",
-						data : {
-							action : "DBGetJobskillByJid",
-							jid : jid
-						}
-					}).done(function(data) {
-						var tags = JSON.parse(data);
-						var str = "";
-						for (var i = 0; i < tags.length; ++i) {
-							if (str != "")
-								str += ", ";
-							str += tags[i].skill;
-						}
-						$("#jtags-input").val(str);
-
-					}) */
 				})
 			}
 
@@ -526,7 +508,8 @@
 						+ jobs[i].uname
 						+ "</td>"
 						+ "<td style='width: 20%'><b>Description</b></td> <td style='width: 30%'>"
-						+ jobs[i].jwebsite
+						+ "<a href='"+jobs[i].jwebsite+"'>Job Description"
+						+ "</a>"
 						+ "</td></tr> </table>"
 						+ "<div class='postmetadata' style='margin-top: 10px; margin-bottom: 10px'>"
 						+ "<ul> <li><i class='icon-tags'></i> "
@@ -596,6 +579,10 @@
 			location += "-";
 			location += $("#city").val();
 
+			var website = $("#jwebsite-input").val();
+			if (website.indexOf("http://") != 0)
+				website = "http://" + website;
+			
 			$.ajax(
 					{
 						url : "HandleJob",
@@ -609,7 +596,7 @@
 							jpostdate : $("#jpostdate-input").val(),
 							jcompany : $("#jcompany-input").val(),
 							jlocation : location, 
-							jwebsite : $("#jwebsite-input").val(),
+							jwebsite : website,
 							jskill : $("#jtags-input").val(),
 							jtype : type,
 							jindustry : industry

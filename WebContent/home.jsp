@@ -411,12 +411,6 @@
 			for (var i = page; i < page + 5 && i < jobs.length; ++i) {
 				if (++count == 5)
 					break;
-				var tags = "";
-				for (var j = 0; j < jobs[i].tags.length; ++j) {
-					if (tags != "")
-						tags += ", ";
-					tags += "<a href='#'>" + jobs[i].tags[j].skill + "</a>";
-				}
 				debugger;
 				var post = "<div class='blog-post'>"
 						+ "<ul style='float: right'>"
@@ -452,11 +446,12 @@
 						+ jobs[i].uname
 						+ "</td>"
 						+ "<td style='width: 20%'><b>Description</b></td> <td style='width: 30%'>"
-						+ jobs[i].jwebsite
+						+ "<a href='"+jobs[i].jwebsite+"'>Job Description"
+						+ "</a>"
 						+ "</td></tr> </table>"
 						+ "<div class='postmetadata' style='margin-top: 10px; margin-bottom: 10px'>"
 						+ "<ul> <li><i class='icon-tags'></i> "
-						+ tags
+						+ jobs[i].jskill
 						+ "</li> </ul> </div> </div> ";
 
 				$("#post-div").append(post);

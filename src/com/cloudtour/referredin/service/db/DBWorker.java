@@ -11,18 +11,22 @@ import com.cloudtour.referredin.service.db.task.DBTask;
 public class DBWorker {
 	Connection conn;
 	Statement stmt;
-	String url= "jdbc:mysql://localhost/referredin?useUnicode=true&characterEncoding=UTF-8";
+	String url = "jdbc:mysql://referredin.czo1zilsvm6d.us-east-1.rds.amazonaws."
+			+ "com/referredin?useUnicode=true&characterEncoding=UTF-8";
+	// String url=
+	// "jdbc:mysql://localhost/referredin?useUnicode=true&characterEncoding=UTF-8";
 	String user = "root";
-	String password = "";
-	
+	String password = "root1234";
+//	String password = "root1234";
+
 	public ResultSet query(DBTask task) {
 		return task.query(conn);
 	}
-	
+
 	public boolean update(DBTask task) {
 		return task.update(conn);
 	}
-	
+
 	void getDirver() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

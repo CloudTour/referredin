@@ -106,6 +106,8 @@ public class HandleDiscover extends HttpServlet {
 						obj.put("jindustry", set.getString("jindustry"));
 						obj.put("jwebsite", set.getString("jwebsite"));
 						obj.put("jskill", set.getString("jskill"));
+						obj.put("friendfirstname", set.getString("friendfirstname"));
+						obj.put("friendlastname", set.getString("friendlastname"));
 						array.add(obj);
 					}
 				}

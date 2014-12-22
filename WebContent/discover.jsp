@@ -88,7 +88,7 @@
 									<li class="dropdown"><a href="#" class="dropdown-toggle"
 										data-toggle="dropdown"><%=uname%> <b class="caret"></b></a>
 										<ul class="dropdown-menu">
-											<li><a href="#">Profile</a></li>
+											<li><a href="profile.jsp">Profile</a></li>
 											<li><a href="index.jsp">Sign Out</a></li>
 										</ul></li>
 								</ul>
@@ -124,7 +124,12 @@
 			<div class="span9">
 				<!--Blog Post-->
 				<div class="">
-					<a class="btn btn-success" onclick="showWin()" href="#">New Post</a><select
+					<select
+						id="sort-select" style="float: right">
+						<option selected>sort by date</option>
+						<option>sort by title</option>
+					</select>
+					<select
 						id="sort-select" style="float: right">
 						<option selected>sort by date</option>
 						<option>sort by title</option>
@@ -327,25 +332,42 @@
 
 		var jobs = [];
 		var likes = [];
+		var follows = {};
 		function init() {
-			jobs = [];
 			$("#popup").fadeOut();
 
+				debugger;
 			likes = [];
 			$.ajax({
-				url:"HandleLike",
-				type:"GET",
-				async:false,
-				data :{
-					action: "DBGetLikeByUname",
+				url : "HandleLike",
+				type : "GET",
+				async : false,
+				data : {
+					action : "DBGetLikeByUname",
 					uname : $("#uname").html(),
 				}
 			}).done(function(data) {
 				likes = JSON.parse(data);
 			})
 
+			follows = {};
+			$.ajax({
+				url : "HandleFollows",
+				type : "GET",
+				async : false,
+				data : {
+					action : "DBGetFollows",
+					uname : $("#uname").html(),
+				}
+			}).done(function(data) {
+				debugger;
+				var result = JSON.parse(data);
+				for (var i = 0; i < result.length; ++i)
+					follows[result[i].following] = result[i];
+			})
 
-			debugger;
+			jobs = [];
+			var jcount = 0;
 			$.ajax({
 				url : "HandleDiscover",
 				type : "GET",
@@ -356,7 +378,9 @@
 				}
 			}).done(function(data) {
 				debugger;
-				jobs = JSON.parse(data);
+				var result = JSON.parse(data);
+				for (var i = 0; i < result.length; ++i)
+					jobs[jcount++] = result[i];
 			});
 
 			jobs.sort(byTime);
@@ -385,17 +409,12 @@
 		}
 
 		function pageLoad(page) {
+			debugger;
 			$("#post-div div").remove();
 			var count = -1;
 			for (var i = page; i < page + 5 && i < jobs.length; ++i) {
 				if (++count == 5)
 					break;
-				var tags = "";
-				for (var j = 0; j < jobs[i].tags.length; ++j) {
-					if (tags != "")
-						tags += ", ";
-					tags += "<a href='#'>" + jobs[i].tags[j].skill + "</a>";
-				}
 				debugger;
 				var post = "<div class='blog-post'>"
 						+ "<ul style='float: right'>"
@@ -406,8 +425,16 @@
 						+ "' onclick='like("
 						+ jobs[i].jid
 						+ ")'>"
-						+ ((jobs[i].jid in likes) ? "Dislike" : "Like")
-						+ "</a></li></ul></li> </ul>"
+						+ ((likes.indexOf(jobs[i].jid) != -1) ? "Dislike" : "Like")
+						+ "</a></li> "
+						+ "<li><a href='#' id='follow-"
+						+ i
+						+ "' onclick='addfollow("
+						+ i
+						+ ")'>"
+						+ ((jobs[i].uname in follows) ? "Unfollow" : "Follow")
+						+ "</a></li> "
+						+ "</ul></li> </ul>"
 						+ "<table style='width: 100%'>"
 						+ "<tr><td style='width: 20%'><b>Title</b></td><td style='width: 30%'>"
 						+ jobs[i].jtitle
@@ -419,7 +446,7 @@
 						+ jobs[i].jcompany
 						+ "</td>"
 						+ "<td style='width: 20%'><b>Location</b></td> <td style='width: 30%'>"
-						+ (jobs[i].jlocation == null ? "" : jobs[i].jlocation)
+						+ jobs[i].jlocation
 						+ "</td> </tr>"
 						+ "<tr> <td style='width: 20%'><b>type</b></td> <td style='width: 30%'>"
 						+ jobs[i].jtype
@@ -428,15 +455,18 @@
 						+ jobs[i].jindustry
 						+ "</td> </tr>"
 						+ "<tr> <td style='width: 20%'><b>Author</b></td> <td style='width: 30%'>"
-						+ jobs[i].uname
+						+ "<a href='Mailto:"+jobs[i].uname +"'>"
+						+ jobs[i].uname 
+						+ "</a><br>"
+						+ " (friend of "+jobs[i].friendfirstname + " " + jobs[i].friendlastname +")"
 						+ "</td>"
 						+ "<td style='width: 20%'><b>Description</b></td> <td style='width: 30%'>"
-						+ jobs[i].jwebsite
+						+ "<a href='"+jobs[i].jwebsite+"'> Job Description"
+						+ "</a>"
 						+ "</td></tr> </table>"
 						+ "<div class='postmetadata' style='margin-top: 10px; margin-bottom: 10px'>"
 						+ "<ul> <li><i class='icon-tags'></i> "
-						+ tags
-						+ "</li> </ul> </div> </div> ";
+						+ jobs[i].jskill + "</li> </ul> </div> </div> ";
 
 				$("#post-div").append(post);
 			}
@@ -575,6 +605,39 @@
 			}
 
 		}
+		
+ 		function addfollow(index) {
+			debugger;
+			var followid = jobs[index].uname;
+			var cur = $("#follow-" + index).html();
+			if (cur == "Follow") {
+				$.ajax({
+					url : "HandleFollows",
+					type : "POST",
+					data : {
+						action : "add",
+						uname : $("#uname").html(),
+						following: followid
+					}
+				}).done(function(data) {
+					$("#follow-" + index).html("Unfollow");
+				})
+			} else {
+				$.ajax({
+					url : "HandleFollows",
+					type : "POST",
+					data : {
+						action : "delete",
+						uname : $("#uname").html(),
+						following: followid
+					}
+				}).done(function(data) {
+					$("#follow-" + index).html("Follow");
+				})
+			}
+			init();
+		}
+ 
 
 		function cancel() {
 			$("#popup").fadeOut();

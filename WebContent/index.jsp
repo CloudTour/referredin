@@ -334,6 +334,7 @@
 				}
 			}).done(
 					function(data) {
+						debugger;
 						var json = JSON.parse(data);
 						if (json.result != "success") {
 							alert(json.result);

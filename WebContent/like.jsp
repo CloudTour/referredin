@@ -88,7 +88,7 @@
 									<li class="dropdown"><a href="#" class="dropdown-toggle"
 										data-toggle="dropdown"><%=uname%> <b class="caret"></b></a>
 										<ul class="dropdown-menu">
-											<li><a href="#">Profile</a></li>
+											<li><a href="profile.jsp">Profile</a></li>
 											<li><a href="index.jsp">Sign Out</a></li>
 										</ul></li>
 								</ul>
@@ -503,11 +503,12 @@
 						+ jobs[i].uname
 						+ "</td>"
 						+ "<td style='width: 20%'><b>Description</b></td> <td style='width: 30%'>"
-						+ jobs[i].jwebsite
+						+ "<a href='"+jobs[i].jwebsite+"'>Job Description"
+						+ "</a>"
 						+ "</td></tr> </table>"
 						+ "<div class='postmetadata' style='margin-top: 10px; margin-bottom: 10px'>"
 						+ "<ul> <li><i class='icon-tags'></i> "
-						+ tags
+						+ jobs[i].jskill
 						+ "</li> </ul> </div> </div> ";
 
 				$("#post-div").append(post);
