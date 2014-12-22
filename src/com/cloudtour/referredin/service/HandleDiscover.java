@@ -15,6 +15,7 @@ import org.json.simple.JSONObject;
 
 import com.cloudtour.referredin.service.db.DBManager;
 import com.cloudtour.referredin.service.db.DBWorker;
+import com.cloudtour.referredin.service.db.task.DBDiscoverJobs;
 import com.cloudtour.referredin.service.db.task.DBDiscoverJobsByFollow;
 import com.cloudtour.referredin.service.db.task.DBGetUser;
 
@@ -87,7 +88,7 @@ public class HandleDiscover extends HttpServlet {
 		}
 
 		set = worker.query(new DBDiscoverJobsByFollow(uname));
-
+		
 		// response
 		JSONArray array = new JSONArray();
 		try {
@@ -106,9 +107,38 @@ public class HandleDiscover extends HttpServlet {
 						obj.put("jindustry", set.getString("jindustry"));
 						obj.put("jwebsite", set.getString("jwebsite"));
 						obj.put("jskill", set.getString("jskill"));
-						obj.put("friendfirstname", set.getString("friendfirstname"));
-						obj.put("friendlastname", set.getString("friendlastname"));
+						obj.put("friendfirstname",
+								set.getString("friendfirstname"));
+						obj.put("friendlastname",
+								set.getString("friendlastname"));
 						array.add(obj);
+					}
+				}
+			}
+
+			if (array.size() == 0) {
+				set = worker.query(new DBDiscoverJobs(uname));
+				while (set != null && set.next()) {
+					String[] jobSkills = set.getString("jskill").split(",");
+					for (String s : jobSkills) {
+						if (skillSet.contains(s.trim())) {
+							JSONObject obj = new JSONObject();
+							obj.put("uname", set.getString("uname"));
+							obj.put("jid", set.getString("jid"));
+							obj.put("jtitle", set.getString("jtitle"));
+							obj.put("jcompany", set.getString("jcompany"));
+							obj.put("jlocation", set.getString("jlocation"));
+							obj.put("jpostdate", set.getString("jpostdate"));
+							obj.put("jtype", set.getString("jtype"));
+							obj.put("jindustry", set.getString("jindustry"));
+							obj.put("jwebsite", set.getString("jwebsite"));
+							obj.put("jskill", set.getString("jskill"));
+//							obj.put("friendfirstname",
+//									set.getString("friendfirstname"));
+//							obj.put("friendlastname",
+//									set.getString("friendlastname"));
+							array.add(obj);
+						}
 					}
 				}
 			}

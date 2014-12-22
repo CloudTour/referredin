@@ -21,7 +21,6 @@ import com.cloudtour.referredin.service.db.task.DBDeleteUserskill;
 import com.cloudtour.referredin.service.db.task.DBGetUser;
 import com.cloudtour.referredin.service.db.task.DBGetUserskill;
 import com.cloudtour.referredin.service.db.task.DBGetUserskillByUname;
-import com.cloudtour.referredin.service.db.task.DBUpdateUser;
 import com.cloudtour.referredin.service.db.task.DBUpdateUserWithSkill;
 
 /**
@@ -281,21 +280,21 @@ public class HandleUser extends HttpServlet {
 			response.getWriter().write("{\"result\": \"Failed to add.\"}");
 	}
 
-	private void handleUpdate(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
-		String password = request.getParameter("password");
-		String firstname = request.getParameter("firstname");
-		String lastname = request.getParameter("lastname");
-		String birthdate = request.getParameter("birthdate");
-		String resume = request.getParameter("resume");
-
-		DBWorker worker = DBManager.getInstance().getWorker();
-		if (worker.update(new DBUpdateUser(name, password, firstname, lastname,
-				birthdate, resume)))
-			response.getWriter().write("{\"result\": \"success\"}");
-		else
-			response.getWriter().write("{\"result\": \"Failed to update.\"}");
-	}
+//	private void handleUpdate(HttpServletRequest request,
+//			HttpServletResponse response) throws ServletException, IOException {
+//		String name = request.getParameter("name");
+//		String password = request.getParameter("password");
+//		String firstname = request.getParameter("firstname");
+//		String lastname = request.getParameter("lastname");
+//		String birthdate = request.getParameter("birthdate");
+//		String resume = request.getParameter("resume");
+//
+//		DBWorker worker = DBManager.getInstance().getWorker();
+//		if (worker.update(new DBUpdateUser(name, password, firstname, lastname,
+//				birthdate, resume)))
+//			response.getWriter().write("{\"result\": \"success\"}");
+//		else
+//			response.getWriter().write("{\"result\": \"Failed to update.\"}");
+//	}
 
 }
