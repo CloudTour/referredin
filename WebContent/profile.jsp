@@ -166,6 +166,13 @@
                                   <input id="birthday-input" class="form-control input-xxlarge" type="date" value="">
                                 </div>
                               </div>
+                              
+                              <div class="control-group">
+                                <label class="control-label">Discription:</label>
+                                <div class="controls">
+                                  <input  id="discription-input" class="form-control input-xxlarge" type="text" value="">
+                                </div>
+                              </div>
 
                               <div class="control-group">
                                 <label class="control-label">Password:</label>
