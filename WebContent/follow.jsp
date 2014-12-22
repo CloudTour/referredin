@@ -219,15 +219,8 @@
 	<!--Footer
 ==========================-->
 
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="span6">
-					Copyright copy 2013 Cloud Tour | All Rights Reserved <br>
-				</div>
-			</div>
-		</div>
-	</footer>
+	<jsp:include page="footer.jsp" />
+
 	<!--/.Footer-->
 
 
